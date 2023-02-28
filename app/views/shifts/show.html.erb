@@ -1,8 +1,29 @@
-<h1>This is shift show.html</h1>
-<p> View the details of shift, so that I can see conflicts/problems</p>
-<p> Manager click on specific day 'day_id', and click on specific shift 'shift_id' to land on this page </p>
+<div class= 'container m-3 text-center'>
+  <h1>SHIFT VIEW</h1>
+  <div class="d-flex justify-content-evenly">
+    <div>
+      <br>
+      <%= @shift.start_time %>
+      <br>
+      <%= @shift.end_time %>
+      <br>
+    </div>
+    <div>
+      <% @shift.assignments.each do |assignment| %>
+        <%= assignment.role %>
+      <% end %>
+      <br>
+      <hr>
+      <ul>
+      <% @shift.users.each do |user| %>
+        <li><%= user.name %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <%= link_to 'Back to Month View', days_path, class: 'btn btn-primary text-light'  %>
+</div>
 
 
-<%= @shift.start_time %>
-<br>
-<%= @shift.end_time %>
+<%# <p> View the details of shift, so that I can see conflicts/problems</p> %>
+<%# <p> Manager click on specific day 'day_id', and click on specific shift 'shift_id' to land on this page </p> %>
