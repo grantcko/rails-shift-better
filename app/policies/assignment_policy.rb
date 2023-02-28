@@ -4,13 +4,13 @@ class AssignmentPolicy < ApplicationPolicy
     def resolve
       scope.all
     end
+  end
 
-    def show?
-      true
-    end
+  def show?
+    true
+  end
 
-    def create?
-      true
-    end
+  def create?
+    true
   end
 end
