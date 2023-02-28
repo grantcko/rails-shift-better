@@ -40,8 +40,7 @@ march_one_time = DateTime.new + 2460005
   Day.create!(
     date: march_one_date,
   )
-  march_one_time += 1
-  march_one_date += 1
+
   times = {
     six: march_one_time + 0.25,
     nine: march_one_time + 0.375,
@@ -50,6 +49,8 @@ march_one_time = DateTime.new + 2460005
     seventeen: march_one_time + 17.fdiv(24),
     twenty: march_one_time + 20.fdiv(24)
   }
+  march_one_time += 1
+  march_one_date += 1
 
   Shift.create!(start_time: times[:six], end_time: times[:fourteen], day_id: Day.last.id)
   Shift.create!(start_time: times[:nine], end_time: times[:seventeen], day_id: Day.last.id)
