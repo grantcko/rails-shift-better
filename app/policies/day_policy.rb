@@ -12,6 +12,5 @@ class DayPolicy < ApplicationPolicy
     def create?
       true
     end
-
   end
 end
