@@ -1,4 +1,21 @@
 <%# Anik's page %>
-
-<h1>Hello from day show.html</h1>
-<%= @day.date %>
+<div style="display: flex; justify-content: center;">
+  <div>
+    <h2><%= @day.date %></h2>
+    <% @day.shifts.each do |shift| %>
+      <div class="card d-flex">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <p class="card-title"><%= shift.start_time %> - <%= shift.end_time %></p>
+            <div>
+              <% shift.users.each do |user| %>
+                <p class="card-text"><%= user.name %></p>
+              <% end %>
+            </div>
+          </div>
+          <%= link_to "shift", shift_path(shift), class: "text-dark btn btn-info" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
