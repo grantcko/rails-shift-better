@@ -1,6 +1,8 @@
 class DaysController < ApplicationController
   def index
     @days = policy_scope(Day)
+    @shifts = Shift.all
+    @this_month = month_of_days(@days)
   end
 
   def show
@@ -23,4 +25,10 @@ private
 
 def day_params
   params.require(:day).permit(:date, :approved)
+end
+
+def month_of_days(days)
+  months = ["January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December"]
+  months[days.first.date.month - 1]
 end
