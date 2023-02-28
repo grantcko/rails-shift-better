@@ -107,7 +107,11 @@ puts "created #{Preference.count} preferences"
 #### ASSIGNMENT
 roles = %w[desk clean-up file-sorting door yelling smiling]
 Shift.all.each do |shift|
-  3.times { Assignment.create!(role: roles.sample, user: User.all.sample, shift: shift) }
+  user = User.all.sample
+  3.times {
+    Assignment.create!(role: roles.sample, user:, shift:)
+    user = User.all.sample while user == Assignment.last.user
+  }
 end
 
 puts "created #{Assignment.count} assignments"
