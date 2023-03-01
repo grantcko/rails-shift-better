@@ -1,4 +1,7 @@
 <div class="container text-center pt-3">
-  <h1><%= @this_month %></h1>
-  <%= render 'days/calendar', shifts: @shifts, days: @days %>
+  <div class="">
+    <h1><%= @this_month %></h1>
+    <%= render 'days/calendar', shifts: @shifts, days: @days %>
+    <%= link_to "generate", '#', class: 'btn btn-primary ' %>
+  </div>
 </div>

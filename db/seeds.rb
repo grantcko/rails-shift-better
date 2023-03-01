@@ -69,7 +69,7 @@ notes = [
   "I need to take the train at this time",
 ]
 def shift_ids(day)
-  shifts = Shift.where(day: day)
+  shifts = Shift.where(day:)
   shift_ids = []
   shifts.each { |shift| shift_ids << shift.id }
 end
@@ -105,13 +105,12 @@ end
 puts "created #{Preference.count} preferences"
 
 #### ASSIGNMENT
-roles = %w[desk clean-up file-sorting door yelling smiling]
-Shift.all.each do |shift|
-  user = User.all.sample
-  3.times {
-    Assignment.create!(role: roles.sample, user:, shift:)
-    user = User.all.sample while user == Assignment.last.user
-  }
-end
+# Shift.all.each do |shift|
+#   user = User.all.sample
+#   3.times {
+#     Assignment.create!(user:, shift:)
+#     user = User.all.sample while user == Assignment.last.user
+#   }
+# end
 
 puts "created #{Assignment.count} assignments"

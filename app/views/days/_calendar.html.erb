@@ -1,18 +1,22 @@
 <% num = 0 %>
 <% day_shifts = [] %>
-<div class="row row-cols-6">
+<div class="cards">
+  <% 3.times do %>
+    <div class="card-category placeholder-grey"></div>
+  <% end %>
   <% days.each do |day| %>
-    <div class="card py-0 text-center my-0 mx-0">
-      <p><%= link_to day.date.day, day_path(day), class: 'text-dark text-decoration-none'%></p>
+    <div class="card-category">
+      <p class="date-corner"><%= link_to day.date.day, day_path(day), class: 'text-dark text-decoration-none'%></p>
       <% 3.times do %>
         <% day_shifts << shifts[num] %>
         <% num += 1 %>
       <% end %>
       <% day_shifts.each do |shift| %>
         <% if shift.day == day %>
-          <p><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
+          <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
         <% end %>
       <% end %>
     </div>
   <% end %>
+  <div class="card-category placeholder-grey"></div>
 </div>
