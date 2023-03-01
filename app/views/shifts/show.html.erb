@@ -1,27 +1,18 @@
 <div class= 'container m-3 text-center'>
-  <h1>SHIFT VIEW</h1>
+  <div class="d-flex justify-content-evenly">
+    <h1>SHIFT VIEW</h1>
+    <%= link_to 'Back to Month View', days_path, class: 'text-primary text-decoration-none'  %>
+  </div>
+  <div><%= render 'shifts/details' %></div><br>
   <div class="d-flex justify-content-evenly">
     <div>
-      <br>
-      <%= @shift.start_time %>
-      <br>
-      <%= @shift.end_time %>
-      <br>
+      <%= render 'shifts/conflict' %>
     </div>
     <div>
-      <% @shift.assignments.each do |assignment| %>
-        <%= assignment.role %>
-      <% end %>
-      <br>
-      <hr>
-      <ul>
-      <% @shift.users.each do |user| %>
-        <li><%= user.name %></li>
-      <% end %>
-      </ul>
+      <p>Choose Employee to Replace</p>
+      <%= render 'shifts/user' %>
     </div>
   </div>
-  <%= link_to 'Back to Month View', days_path, class: 'btn btn-primary text-light'  %>
 </div>
 
 
