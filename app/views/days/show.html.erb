@@ -1,19 +1,26 @@
-<%# Anik's page %>
 <div style="display: flex; justify-content: center;">
   <div>
-    <h2><%= @day.date %></h2>
-    <% @day.shifts.each do |shift| %>
-      <div class="card d-flex">
+    <div class="bg-dark text-white my-3 px-5">
+      <h2><i class="fa-solid fa-calendar-days pt-3 pb-3"></i> Currently Viewing:
+        <%= @day.date.strftime(" %w %b %Y") %></h2>
+    </div>
+    <% @day.shifts.each_with_index do |shift,shift_index| %>
+      <div class="card d-flex mb-3">
         <div class="card-body">
           <div class="d-flex justify-content-between">
-            <p class="card-title"><%= shift.start_time %> - <%= shift.end_time %></p>
+            <span class="card-title bg-dark text-white mb-0 mb-0 pt-5 px-5 mx-3"> <i class="fa-solid fa-business-time"></i> <%= shift.start_time.strftime("%m:%M %p %A") %> - <%= shift.end_time.strftime("%m:%M %p %A") %><p><i class="fa-solid fa-check-to-slot fa-4x mx-5 my-3"></i></p></span>
             <div>
-              <% shift.users.each do |user| %>
-                <p class="card-text"><%= user.name %></p>
+              <% shift.users.each_with_index do |user, index| %>
+                <div class="card-text bg-dark text-white p-2 mb-3 d-flex">
+                  <img class="avatar" data-bs-toggle="collapse" data-bs-target="#avatar-<%= index %>-<%= shift_index %>" aria-expanded="false" aria-controls="avatar-<%= index %>-<%= shift_index %>" alt="avatar" src="https://kitt.lewagon.com/placeholder/users/cveneziani" />
+                  <div class="collapse" id="avatar-<%= index %>-<%= shift_index %>">
+                    <span class=""><%= user.name %></span>
+                  </div>
+                </div>
               <% end %>
             </div>
           </div>
-          <%= link_to "shift", shift_path(shift), class: "text-dark btn btn-info" %>
+          <%= link_to "shift", shift_path(shift), class: "text-dark btn btn-info rounded-pill mt-3" %>
         </div>
       </div>
     <% end %>
