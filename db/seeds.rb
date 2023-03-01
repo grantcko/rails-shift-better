@@ -75,11 +75,9 @@ def shift_ids(day)
 end
 
 User.all.each do |user|
-  num = rand(2..3)
   3.times do
     day = Day.all.sample
     Preference.create!(
-      category: 1,
       unavailable_shift_ids: shift_ids(day),
       user_id: user.id,
       day_id: day.id
@@ -88,7 +86,6 @@ User.all.each do |user|
 
   day = Day.all.sample
   preference = Preference.new(
-    category: num,
     unavailable_shift_ids: shift_ids(day),
     user_id: user.id,
     day_id: day.id
