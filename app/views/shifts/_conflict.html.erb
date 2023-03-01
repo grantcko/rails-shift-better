@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
     <h5 class="card-title">Conflict Alert</h5>
-    <p>From: <%= @shift.start_time %> - To: <%= @shift.end_time %></p>
+    <p>From: <%= @shift.start_time.hour %>:00 - To: <%= @shift.end_time.hour %>:00</p>
     <p class="card-text">
       <% @shift.users.each do |user| %>
         <%= user.name %><br>
