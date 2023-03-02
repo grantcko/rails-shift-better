@@ -8,7 +8,6 @@
     <% if @current_user.manager == true %>
       <%= link_to day_path(day), class: "text-dark text-decoration-none" do %>
         <div class="card-category">
-          <p class="date-corner"><%= day.date.day %></p>
           <% 3.times do %>
             <% day_shifts << shifts[num] %>
             <% num += 1 %>
@@ -18,12 +17,18 @@
               <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
             <% end %>
           <% end %>
+          <p class="date-corner"><%= day.date.day %></p>
         </div>
       <% end %>
     <% else %>
       <%= link_to preferences_path(day), class: 'text-dark text-decoration-none' do %>
         <div class="card-category">
-          <p class="date-corner"><%= day.date.day %></p>
+          <% if @current_user.preferences.include?(Preference.find_by(day:)) %>
+            <% pref_status = "!" %>
+          <% else %>
+            <% pref_status = " " %>
+          <% end %>
+          <p class="date-corner"><%= day.date.day %> <%= pref_status %></p>
           <% 3.times do %>
             <% day_shifts << shifts[num] %>
             <% num += 1 %>
