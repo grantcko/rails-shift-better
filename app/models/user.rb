@@ -5,14 +5,17 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :preferences
   validates :name, presence: true
 
   def can_be_assigned?(shift)
-    # if has preference needs to be respected
-    if shift.day.date == self.preferences
-      return false
-    end
-    # can't work more than 6 days in a row
-    # needs 9 days minimum off
+    ## if has a preference needs to be respected
+    # preferences.each do |preference|
+    #   return false if preference.day == shift.day
+    # end
+    # return false if shift.assignments.count < 3
+    ## can't work more than 6 days in a row
+    ## needs 9 days min off in a month
+    true
   end
 end

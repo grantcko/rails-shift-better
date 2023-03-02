@@ -13,4 +13,8 @@ class AssignmentPolicy < ApplicationPolicy
   def create?
     true
   end
+
+  def create_month?
+    true
+  end
 end
