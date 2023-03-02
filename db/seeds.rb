@@ -22,11 +22,18 @@ puts "\n"
 puts "\n\nCREATING INSTANCES...\n\n"
 
 #### USER
+User.create!(
+  manager: true,
+  name: "taka",
+  email: "taka@gmail.com",
+  password: '123123'
+)
+
 10.times do
   name = Faker::Name.name
   User.create!(
-    name: name,
-    email: name.split.first + "@gmail.com",
+    name:,
+    email: "#{name.split.first}@gmail.com",
     password: '123123'
   )
 end
