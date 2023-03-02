@@ -78,25 +78,32 @@ User.all.each do |user|
   3.times do
     day = Day.all.sample
     Preference.create!(
-      unavailable_shift_ids: shift_ids(day),
+      category: :dayoff,
       user_id: user.id,
       day_id: day.id
     )
   end
 
   day = Day.all.sample
-  preference = Preference.new(
-    unavailable_shift_ids: shift_ids(day),
-    user_id: user.id,
-    day_id: day.id
-  )
 
-  if preference.category == "shift"
-    preference.unavailable_shift_ids = [] << Shift.where(day: preference.day).sample.id
-    preference.note = notes.sample
+  rand(1..3).times do
+    Preference.new(
+      category: %i[dayoff vacation].sample,
+      user_id: user.id,
+      day_id: day.id
+    )
   end
 
-  preference.save
+  rand(0..2).times do
+    preference = Preference.new(
+      category: :shift,
+      user_id: user.id,
+      day_id: day.id
+    )
+    preference.unavailable_shift_ids = [] << Shift.where(day: preference.day).sample.id
+    preference.note = notes.sample
+    preference.save
+  end
 end
 
 puts "created #{Preference.count} preferences"
