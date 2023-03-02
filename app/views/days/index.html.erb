@@ -1,6 +1,7 @@
-<h1>Hello from days index.html</h1>
-<ul>
-  <% @days.each do |day| %>
-    <li><%= link_to day.date, day_path(day), class: 'text-dark text-decoration-none'%></li>
-  <% end %>
-</ul>
+<div class="container text-center pt-3">
+  <div class="position-absolute top-50 start-50 translate-middle">
+    <h1><%= @this_month %></h1>
+    <%= render 'days/calendar', shifts: @shifts, days: @days %>
+    <form action="/days" method="post"><button>generate</button></form>
+  </div>
+</div>

@@ -69,49 +69,52 @@ notes = [
   "I need to take the train at this time",
 ]
 def shift_ids(day)
-  shifts = Shift.where(day: day)
+  shifts = Shift.where(day:)
   shift_ids = []
   shifts.each { |shift| shift_ids << shift.id }
 end
 
 User.all.each do |user|
-  num = rand(2..3)
   3.times do
     day = Day.all.sample
     Preference.create!(
-      category: 1,
-      unavailable_shift_ids: shift_ids(day),
+      category: :dayoff,
       user_id: user.id,
       day_id: day.id
     )
   end
 
   day = Day.all.sample
-  preference = Preference.new(
-    category: num,
-    unavailable_shift_ids: shift_ids(day),
-    user_id: user.id,
-    day_id: day.id
-  )
 
-  if preference.category == "shift"
-    preference.unavailable_shift_ids = [] << Shift.where(day: preference.day).sample.id
-    preference.note = notes.sample
+  rand(1..3).times do
+    Preference.new(
+      category: %i[dayoff vacation].sample,
+      user_id: user.id,
+      day_id: day.id
+    )
   end
 
-  preference.save
+  rand(0..2).times do
+    preference = Preference.new(
+      category: :shift,
+      user_id: user.id,
+      day_id: day.id
+    )
+    preference.unavailable_shift_ids = [] << Shift.where(day: preference.day).sample.id
+    preference.note = notes.sample
+    preference.save
+  end
 end
 
 puts "created #{Preference.count} preferences"
 
 #### ASSIGNMENT
-roles = %w[desk clean-up file-sorting door yelling smiling]
-Shift.all.each do |shift|
-  user = User.all.sample
-  3.times {
-    Assignment.create!(role: roles.sample, user:, shift:)
-    user = User.all.sample while user == Assignment.last.user
-  }
-end
+# Shift.all.each do |shift|
+#   user = User.all.sample
+#   3.times {
+#     Assignment.create!(user:, shift:)
+#     user = User.all.sample while user == Assignment.last.user
+#   }
+# end
 
 puts "created #{Assignment.count} assignments"

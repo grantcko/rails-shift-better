@@ -1,12 +1,21 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background: white;
+
+.bi {
+  width: 2em;
+  height: 2em;
+
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+.bi path,
+.bi polygon,
+.bi rect {
+  fill: #0e0e0f;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.bi circle {
+  stroke: #d2d8df;
+  stroke-width: 1;
+}
+
+.nav-link:hover {
+  background-color: $blue;
 }
