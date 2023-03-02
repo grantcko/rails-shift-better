@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     resources :preferences, only: %i[new create]
   end
   resources :shifts, only: %i[show]
-  resources :assignments, only: %i[update]
+  resources :assignments, only: %i[update create destroy]
   resources :preferences, only: %i[index]
 end

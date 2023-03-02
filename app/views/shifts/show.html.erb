@@ -8,7 +8,9 @@
     </div>
     <div>
       <p>Choose Employee to Replace</p>
-      <%= render 'shifts/user' %>
+      <div data-controller="sortable" data-method="create">
+        <%= render 'shifts/user' %>
+      </div>
     </div>
   </div>
 </div>
