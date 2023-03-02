@@ -5,19 +5,36 @@
     <div class="card-category placeholder-grey"></div>
   <% end %>
   <% days.each do |day| %>
-    <%= link_to day_path(day), class: 'text-dark text-decoration-none' do %>
-      <div class="card-category">
-        <p class="date-corner"><%= day.date.day %></p>
-        <% 3.times do %>
-          <% day_shifts << shifts[num] %>
-          <% num += 1 %>
-        <% end %>
-        <% day_shifts.each do |shift| %>
-          <% if shift.day == day %>
-            <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
+    <% if @current_user.manager == true %>
+      <%= link_to , day_path(day) do %>
+        <div class="card-category">
+          <p class="date-corner"><%= day.date.day %></p>
+          <% 3.times do %>
+            <% day_shifts << shifts[num] %>
+            <% num += 1 %>
           <% end %>
-        <% end %>
-      </div>
+          <% day_shifts.each do |shift| %>
+            <% if shift.day == day %>
+              <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= link_to new_day_preference(day), class: 'text-dark text-decoration-none' do %>
+        <div class="card-category">
+          <p class="date-corner"><%= day.date.day %></p>
+          <% 3.times do %>
+            <% day_shifts << shifts[num] %>
+            <% num += 1 %>
+          <% end %>
+          <% day_shifts.each do |shift| %>
+            <% if shift.day == day %>
+              <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
   <div class="card-category placeholder-grey"></div>

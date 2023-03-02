@@ -3,6 +3,7 @@ class DaysController < ApplicationController
     @days = policy_scope(Day)
     @shifts = Shift.all
     @this_month = month_of_days(@days)
+    @current_user = current_user
   end
 
   def show
