@@ -1,0 +1,19 @@
+<%# remove %>
+<%# remove^ %>
+<div class="container text-center">
+  <h1 class="mt-4">PREFERENCES INDEX</h1>
+  <p>DAY YOU CLICKED ON: <%= @day.date %></p>
+  <% @preferences.each do |preference| %>
+    <% category = preference.category %>
+    <% if category == :shift %>
+      <%= raise %>
+      <% preference.unavailable_shift_ids.each do |id| %>
+        <% start_time = Shift.find_by(id:).start_time.hour %>
+        <% end_time = Shift.find_by(id:).end_time.hour %>
+        <p>You have requested the shift from <%= start_time %>:00 to <%= end_time %>:00 off</p>
+      <% end %>
+    <% elsif category %>
+      <p>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
+    <% end %>
+  <% end %>
+</div>
