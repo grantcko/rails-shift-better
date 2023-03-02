@@ -1,8 +1,16 @@
-<h1>This is shift show.html</h1>
-<p> View the details of shift, so that I can see conflicts/problems</p>
-<p> Manager click on specific day 'day_id', and click on specific shift 'shift_id' to land on this page </p>
-
-
-<%= @shift.start_time %>
-<br>
-<%= @shift.end_time %>
+<div class= 'container m-3 text-center'>
+  <div class="d-flex justify-content-evenly mb-5">
+    <h1>SHIFT VIEW</h1>
+  </div>
+  <div class="d-flex justify-content-evenly">
+    <div>
+      <%= render 'shifts/conflict' %>
+    </div>
+    <div>
+      <p>Choose Employee to Replace</p>
+      <%= render 'shifts/user' %>
+    </div>
+  </div>
+</div>
+<%# <p> View the details of shift, so that I can see conflicts/problems</p> %>
+<%# <p> Manager click on specific day 'day_id', and click on specific shift 'shift_id' to land on this page </p> %>

@@ -3,6 +3,11 @@ class DaysController < ApplicationController
     @days = policy_scope(Day)
     @shifts = Shift.all
     @this_month = month_of_days(@days)
+    if params[:query].present?
+      @users = User.search_by_name(params[:query])
+    else
+      @users = User.all
+    end
   end
 
   def show
