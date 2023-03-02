@@ -6,7 +6,7 @@
   <% end %>
   <% days.each do |day| %>
     <% if @current_user.manager == true %>
-      <%= link_to , day_path(day) do %>
+      <%= link_to day_path(day), class: "text-dark text-decoration-none" do %>
         <div class="card-category">
           <p class="date-corner"><%= day.date.day %></p>
           <% 3.times do %>
@@ -21,7 +21,7 @@
         </div>
       <% end %>
     <% else %>
-      <%= link_to new_day_preference(day), class: 'text-dark text-decoration-none' do %>
+      <%= link_to preferences_path(day), class: 'text-dark text-decoration-none' do %>
         <div class="card-category">
           <p class="date-corner"><%= day.date.day %></p>
           <% 3.times do %>

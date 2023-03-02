@@ -1,7 +1,11 @@
 class PreferencesController < ApplicationController
   # @preference = Preference.new
   def index
-    @preferences = policy_scope(Preference)
+    @preferences = []
+    @day = Day.find(day_params)
+    policy_scope(Preference).each do |preference|
+      @preferences << preference if preference.day == @day
+    end
   end
 
   def new
@@ -20,4 +24,8 @@ private
 
 def preference_pararms
   params.require(:preference).permit(:date, :approved)
+end
+
+def day_params
+  params.require(:format)
 end
