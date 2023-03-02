@@ -1,5 +1,5 @@
 <div class="container text-center pt-3">
-  <div class="position-absolute top-50 start-50 translate-middle">
+  <div class="">
     <h1><%= @this_month %></h1>
     <%= render 'days/calendar', shifts: @shifts, days: @days %>
     <form action="/days" method="post"><button>generate</button></form>
