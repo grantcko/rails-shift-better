@@ -1,0 +1,71 @@
+.card-category {
+  background-size: cover;
+  background-position: center;
+  height: 136px;
+  width: 136px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-size: 14px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  margin: 0px;
+  border-style: solid;
+  border-color: grey;
+  border-width: 1px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  // grid-gap: 16px;
+}
+
+.date-corner {
+  position: relative;
+  left: -56px;
+  top: 12px;
+}
+
+.placeholder-grey {
+  // border-style: none;
+  background-color: lightgrey;
+}
+
+.shift-empty {
+  background-color: lightgrey;
+}
+
+.shift-warning {
+  background-color: pink;
+}
+
+.shift-good {
+  background-color: lightgreen;
+}
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
