@@ -9,11 +9,15 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   def can_be_assigned?(shift)
-    ## if has a preference needs to be respected
-    # preferences.each do |preference|
-    #   return false if preference.day == shift.day
+    # if shift.day == self.preferences
+    #   return false
     # end
-    # return false if shift.assignments.count < 3
+    ## if has a preference needs to be respected
+    preferences.each do |preference|
+      return false if preference.day == shift.day
+    end
+    return false if shift.assignments.count > 2
+
     ## can't work more than 6 days in a row
     ## needs 9 days min off in a month
     true
