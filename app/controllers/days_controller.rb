@@ -24,7 +24,9 @@ class DaysController < ApplicationController
     Assignment.destroy_all
     Shift.all.each do |shift|
       User.all.each do |user|
-        @assignment = Assignment.new(shift:, user:) if user.can_be_assigned?(shift)
+        next unless user.can_be_assigned?(shift)
+
+        @assignment = Assignment.new(shift:, user:)
         authorize @assignment
         @assignment.save
       end
