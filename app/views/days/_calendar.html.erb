@@ -21,10 +21,12 @@
               <% end %>
             <% end %>
           <% end %>
+
         </div>
       <% end %>
     <% else %>
       <%= link_to preferences_path(day), class: 'text-dark text-decoration-none' do %>
+
         <div class="card-category p">
           <div class="d-flex justify-content-start mb-1" style="width: 100px">
             <p class="date-corner px-1"><%= day.date.day %></p>
@@ -39,6 +41,7 @@
               <% else %>
                 <p class="text-light shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
               <% end %>
+
             <% end %>
           <% end %>
         </div>

@@ -2,13 +2,25 @@
   float: right;
 }
 .list{
-  width: 590px;
+  width: 350px;
   margin-left: 16px;
   margin-right: 60px;
 }
-.notification{
-  border: 1px solid;
-  border-color: black;
-  border-radius: 25px;
+.notificationsearch{
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  background: white;
+  padding: 10px 16px;
+  border: 1px solid rgb(235,235,235);
+  border-color: lightgray;
+  border-radius: 5%;
 
 }
+#name-search{
+  font-size: small;
+}
+.searchbutton{
+  height: 40px;
+}
+
