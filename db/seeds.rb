@@ -15,7 +15,7 @@ puts "destroyed days"
 User.destroy_all
 puts "destroyed users"
 puts "\n"
-25.times {print '-'}
+25.times { print '-' }
 
 ######### CREATING #########
 
@@ -26,6 +26,12 @@ User.create!(
   manager: true,
   name: "taka",
   email: "taka@gmail.com",
+  password: '123123'
+)
+
+User.create!(
+  name: "grant",
+  email: "grant@gmail.com",
   password: '123123'
 )
 
