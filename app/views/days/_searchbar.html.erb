@@ -3,8 +3,7 @@
       <%= text_field_tag :query,
     params[:query],
     class: "form-control",
-    placeholder: "Find a Team Member"
-  %>
+    placeholder: "Find a Team Member" %>
       <%= submit_tag "Search", class: "btn btn-dark" %>
     <% end %> </p>
   <% users.each do |user| %>
@@ -13,7 +12,6 @@
       <div class="notification-content text-center">
        <div id="name-search"> <%= user.name %> <i class="fa-sharp fa-solid fa-circle-check"></i></div>
       </div>
-
     </div>
   <% end %>
 </div>
