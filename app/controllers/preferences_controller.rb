@@ -25,22 +25,17 @@ class PreferencesController < ApplicationController
     if @preference.save
       redirect_to days_path
     else
-      raise
       render :new, status: :unprocessable_entity
     end
   end
-end
 
-private
+  private
 
-def preference_params
-  params.require(:preference).permit(:category, :note, unavailable_shift_ids: [])
-end
+  def preference_params
+    params.require(:preference).permit(:category, :note, unavailable_shift_ids: [])
+  end
 
-def day_params
-  params.require(:format)
-end
-
-def day_params
-  params.require(:format)
+  def day_params
+    params.require(:format)
+  end
 end

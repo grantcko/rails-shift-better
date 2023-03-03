@@ -6,7 +6,8 @@
     <div class="calendar p-1">
       <h1><%= @this_month %></h1>
       <%= render 'days/calendar', shifts: @shifts, days: @days %>
-      <form action="/days" method="post"><button>generate</button></form>
+      <br>
+      <form action="/days" method="post"><button class="btn btn-dark">generate</button></form>
     </div>
   </div>
 
