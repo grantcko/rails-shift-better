@@ -1,0 +1,58 @@
+<%# <ul class="list-group">
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckboxStretched">
+      <label class="form-check-label stretched-link" for="firstCheckboxStretched">Day off</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckboxStretched">
+      <label class="form-check-label stretched-link" for="secondCheckboxStretched">Pay Day off</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckboxStretched">
+      <label class="form-check-label stretched-link" for="thirdCheckboxStretched">Doesn't matter but I want it as Dayoff</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckboxStretched">
+      <label class="form-check-label stretched-link" for="thirdCheckboxStretched">I have an appointment</label>
+    </li>
+    <div class="form-floating">
+      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+      <label for="floatingTextarea2">Comments</label>
+    </div>
+    <div class="col-12 my-2">
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+  </ul> %>
+<div>
+  <head>
+    <meta charset="UTF-8">
+    <title>Day Off / Paid Day Off / Appointment Request Form</title>
+  </head>
+  <body>
+    <h1>Day Off / Paid Day Off / Appointment Request Form</h1>
+    <form method="post">
+      <label for="request-type">Type of Request:</label><br>
+      <input type="radio" id="day-off" name="request-type" value="day-off">
+      <label for="day-off">Day Off</label><br>
+      <input type="radio" id="paid-day-off" name="request-type" value="paid-day-off">
+      <label for="paid-day-off">Paid Day Off</label><br>
+      <input type="radio" id="appointment" name="request-type" value="appointment">
+      <label for="appointment">Appointment</label><br>
+      <label for="appointment-memo">Appointment Memo:</label><br>
+      <textarea id="appointment-memo" name="appointment-memo" rows="4" cols="50"></textarea>
+      <br>
+      <label for="date-requested">Date Requested:</label>
+      <input type="date" id="date-requested" name="date-requested"><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</div>
+<%= simple_form_for [@day, @preference] do |f| %>
+  <%= f.input :category, as: :radio_buttons, collection: @types %>
+  <% @day.shifts.each do |shift| %>
+    <%= check_box_tag "preference[unavailable_shift_ids][]", shift.id, nil, id: "preference-shift-#{shift.id}" %>
+    <label for="preference-shift-<%= shift.id %>"><%= shift.start_time.strftime("%I:%M %p") %> - <%= shift.end_time.strftime("%I:%M %p") %></label>
+  <% end %>
+  <%= f.input :note %>
+  <%= f.submit 'Confirm' %>
+<% end %>
