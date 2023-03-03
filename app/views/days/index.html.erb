@@ -1,6 +1,9 @@
-<div class="container text-center pt-3">
-  <div>
-    <div class="position-absolute top-50 start-50 translate-middle">
+<div class="text-center pt-3">
+  <div class="d-flex justify-content-between">
+    <div class=>
+      <%= render "days/searchbar", users: @users %>
+    </div>
+    <div class="calendar p-1">
       <h1><%= @this_month %></h1>
       <%= render 'days/calendar', shifts: @shifts, days: @days %>
       <form action="/days" method="post"><button>generate</button></form>
@@ -8,3 +11,4 @@
   </div>
 
 </div>
+<%# <div class=search><%= render "shifts/user" %>

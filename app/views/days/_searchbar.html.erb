@@ -1,0 +1,22 @@
+<div class="list">
+  <p><%= form_with url: days_path, method: :get, class: "d-flex my-3" do %>
+      <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Find a Team Member"
+  %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %> </p>
+  <% users.each do |user| %>
+    <div class="notification">
+      <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
+      <div class="notification-content text-center">
+        <h5><%= user.name %> <i class="fa-sharp fa-solid fa-circle-check"></i></h5>
+      </div>
+      <div class="notification-actions">
+        <a href="#">Edit <i class="fas fa-pencil-alt"></i></a>
+        <a href="#">Delete <i class="far fa-trash-alt"></i></a>
+      </div>
+    </div>
+  <% end %>
+</div>
