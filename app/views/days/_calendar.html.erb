@@ -1,5 +1,3 @@
-<% num = 0 %>
-<% day_shifts = [] %>
 <div class="cards">
   <% 3.times do %>
     <div class="card-category placeholder-grey"></div>
@@ -8,11 +6,7 @@
     <% if @current_user.manager == true %>
       <%= link_to day_path(day), class: "text-dark text-decoration-none" do %>
         <div class="card-category">
-          <% 3.times do %>
-            <% day_shifts << shifts[num] %>
-            <% num += 1 %>
-          <% end %>
-          <% day_shifts.each do |shift| %>
+          <% shifts.each do |shift| %>
             <% if shift.day == day %>
               <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
             <% end %>
@@ -29,11 +23,7 @@
             <% pref_status = " " %>
           <% end %>
           <p class="date-corner"><%= day.date.day %> <%= pref_status %></p>
-          <% 3.times do %>
-            <% day_shifts << shifts[num] %>
-            <% num += 1 %>
-          <% end %>
-          <% day_shifts.each do |shift| %>
+          <% shifts.each do |shift| %>
             <% if shift.day == day %>
               <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
             <% end %>
