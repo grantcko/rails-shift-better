@@ -1,8 +1,8 @@
 .card-category {
   background-size: cover;
   background-position: center;
-  height: 160px;
-  width: 160px;
+  height: 120px;
+  width: 120px;
   // height: 136px;
   // width: 136px;
   display: flex;
@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  font-size: 14px;
+  font-size: 10px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   margin: 0px;
   border-style: solid;
@@ -18,6 +18,7 @@
   border-width: 1px;
   position:relative;
 }
+
 
 .cards {
   display: grid;
