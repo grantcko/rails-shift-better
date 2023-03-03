@@ -4,10 +4,11 @@
   </div>
   <div class="card-body">
     <h5 class="card-title">No Conflict</h5>
-    <p>From: <%= @shift.start_time.hour %>:00 - To: <%= @shift.end_time.hour %>:00</p>
+    <div class="card-shift m-3">From: <%= @shift.start_time.hour %>:00 - To: <%= @shift.end_time.hour %>:00</div>
+    <p>Employee Assigned to this Shift</p>
       <div data-controller="sortable" data-method="destroy" data-shift-id="<%= @shift.id %>">
         <% @shift.assignments.each do |assignment| %>
-        <div class="notification" data-id="<%= assignment.id %>">
+        <div class="notification draggable-item" data-id="<%= assignment.id %>">
           <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
           <div class="notification-content text-center">
           <h5><%= assignment.user.name %></h5>
@@ -15,10 +16,9 @@
         </div>
         <% end %>
       </div>
-    <%= link_to 'Save', shift_path(@shift), class: "btn btn-warning m-2 text-light"%>
   </div>
   <div class="card-footer text-muted">
-    2 days ago
+    Drag & Drop to Reassign
   </div>
 </div>
 <div class="mt-3">

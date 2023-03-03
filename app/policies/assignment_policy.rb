@@ -14,6 +14,10 @@ class AssignmentPolicy < ApplicationPolicy
     true
   end
 
+  def destroy?
+    true
+  end
+
   def create_month?
     true
   end

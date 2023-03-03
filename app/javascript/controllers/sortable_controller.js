@@ -35,7 +35,7 @@ export default class extends Controller {
 
   destroyAssignment(event){
     console.log(event)
-    const url = `/assignments/${id}`;
+    const url = `/assignments/${event.item.dataset.id}`;
     fetch(url, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },

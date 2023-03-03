@@ -17,6 +17,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(params[:id])
     authorize @assignment
     @assignment.destroy
+    render json: {status: 'destroy'}
   end
 
   private
