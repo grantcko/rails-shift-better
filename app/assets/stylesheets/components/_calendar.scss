@@ -59,6 +59,11 @@
   background-color: lightgrey;
 }
 
+.shift-empty {
+  color: rgb(137, 137, 137);
+  background-color: rgb(231, 231, 231);
+}
+
 .shift-warning {
   color: rgb(255, 255, 255);
   background-color: rgb(255, 81, 81);
@@ -66,6 +71,10 @@
 
 .shift-good {
   background-color: #e2e2e2;
+}
+
+.employee-calendar-center {
+  top: 350px;
 }
 
 // Smallest device
