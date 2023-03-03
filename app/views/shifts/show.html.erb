@@ -1,11 +1,11 @@
 <div class= 'container m-5 text-center'>
-  <%= render 'shifts/details' %>
+  <h3 class="text-bold mb-2"><%= @shift.start_time.strftime("%A, %-d %B %Y") %></h3>
   <div class="d-flex justify-content-evenly">
     <div>
       <%= render 'shifts/conflict' %>
     </div>
     <div>
-      <p>Choose Employee to Replace</p>
+      <p class="card-shift">Choose Employee to Replace</p>
       <div data-controller="sortable" data-method="create">
         <%= render 'shifts/user' %>
       </div>
