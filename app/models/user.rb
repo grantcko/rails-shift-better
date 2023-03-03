@@ -15,12 +15,19 @@ class User < ApplicationRecord
     }
   def can_be_assigned?(shift)
     ## if has a preference needs to be respected
-    # preferences.each do |preference|
-    #   return false if preference.day == shift.day
-    # end
-    # return false if shift.assignments.count < 3
+    preferences.each do |preference|
+      return false if preference.day == shift.day
+    end
+    return false if shift.assignments.count >= 3
     ## can't work more than 6 days in a row
     ## needs 9 days min off in a month
-    true
+    ## not work more than once on the same day
+    assignments = Assignment.where(user: self)
+    work_days = []
+    assignments.each do |assignment|
+      work_days << assignment.shift.day unless work_days.include?(assignment.shift.day)
+    end
+    return false if work_days.include?(shift.day)
+    return true
   end
 end
