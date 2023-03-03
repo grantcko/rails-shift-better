@@ -40,3 +40,7 @@ end
 def day_params
   params.require(:format)
 end
+
+def day_params
+  params.require(:format)
+end
