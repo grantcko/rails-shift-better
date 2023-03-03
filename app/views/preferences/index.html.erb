@@ -1,7 +1,5 @@
-<%# remove %>
-<%# remove^ %>
 <div class="container text-center">
-  <h1 class="mt-4">PREFERENCES INDEX</h1>
+<br><br><br><br><br><br><br><br><br><br><br>
   <p>DAY YOU CLICKED ON: <%= @day.date %></p>
   <% @preferences.each do |preference| %>
     <% category = preference.category %>
@@ -19,4 +17,16 @@
 
     <% end %>
   <% end %>
+
+  <%#  @preferences.each do |preference| %>
+    <%# if preference.category == "Time-off" %>
+      <%#= preference.category %>
+      <%#= preference.note %>
+    <%# else %>
+      <%#= preference.category %>
+    <%# end %>
+  <%# end %>
+
+  <h2>Make a Request on this day</h2>
+  <%= link_to 'Create',new_day_preference_path(@day), class: 'btn btn-success text-decoration-none text-light' %>
 </div>

@@ -12,6 +12,8 @@
     <div class="text-center employee-calendar-center pt-3 position-absolute start-50 translate-middle">
       <h1><%= @this_month %></h1>
       <%= render 'days/calendar', shifts: @shifts, days: @days %>
+      <br>
+      <form action="/days" method="post"><button class="btn btn-dark">generate</button></form>
     </div>
   <% end %>
 </div>
