@@ -7,7 +7,12 @@ class User < ApplicationRecord
 
   has_many :preferences
   validates :name, presence: true
-
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+    against: [:name],
+    using: {
+      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+    }
   def can_be_assigned?(shift)
     ## if has a preference needs to be respected
     preferences.each do |preference|
