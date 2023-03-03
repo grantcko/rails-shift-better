@@ -39,8 +39,16 @@
 
 .date-corner {
   position: relative;
-  left: -56px;
+
   top: 12px;
+}
+
+.status-corner {
+  position: relative;
+  color: #a4a4a4;
+  top: 12px;
+  font-size: 10px;
+  font-kerning: normal;
 }
 
 .placeholder-grey {
@@ -48,16 +56,13 @@
   background-color: lightgrey;
 }
 
-.shift-empty {
-  background-color: lightgrey;
-}
-
 .shift-warning {
-  background-color: pink;
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 81, 81);
 }
 
 .shift-good {
-  background-color: lightgreen;
+  background-color: #e2e2e2;
 }
 
 // Smallest device
