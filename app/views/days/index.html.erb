@@ -1,19 +1,26 @@
 <div class="container position relative">
-  <div class="d-flex justify-content-between">
-    <% if @current_user.manager == true %>
-      <%= render "days/searchbar", users: @users %>
-      <div class="calendar p-1">
+  <% if @current_user.manager == true %>
+    <div class="text-center d-flex justify-content-center" id="manager-calendar">
+      <div id="sidebar">
+        <div class="toggle-btn" id="toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <%= render "days/searchbar", users: @users %>
+      </div>
+      <div class="calendar p-3">
         <h1><%= @this_month %></h1>
         <%= render 'days/calendar', shifts: @shifts, days: @days %>
         <form action="/days" method="post"><button class="btn btn-dark my-4 text-center">generate</button></form>
       </div>
     </div>
-  <% else %>
-    <div class="text-center employee-calendar-center pt-3 position-absolute start-50 translate-middle">
-      <h1><%= @this_month %></h1>
-      <%= render 'days/calendar', shifts: @shifts, days: @days %>
-      <br>
-    </div>
-  <% end %>
+  </div>
+<% else %>
+  <div class="text-center employee-calendar-center pt-3 position-absolute start-50 translate-middle my-3">
+    <h1><%= @this_month %></h1>
+    <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
+    <br>
+  </div>
+<% end %>
 </div>
-<%# <div class=search><%= render "shifts/user" %>

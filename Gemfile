@@ -82,3 +82,5 @@ end
 gem "faker"
 gem "pundit"
 gem "bootstrap"
+
+gem 'jquery-rails'

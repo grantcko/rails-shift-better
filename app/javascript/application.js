@@ -2,3 +2,6 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import "bootstrap"
+import "./controllers/days_index_slideout"
+
+console.log("Message from: application.js");
