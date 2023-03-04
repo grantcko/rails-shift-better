@@ -3,46 +3,24 @@
     <div class="card-category placeholder-grey"></div>
   <% end %>
   <% days.each do |day| %>
-    <% if @current_user.manager == true %>
-      <%= link_to day_path(day), class: "text-dark text-decoration-none" do %>
-        <div class="card-category">
-          <div class="d-flex justify-content-start mb-1" style="width: 100px">
-            <p class="date-corner px-1"><%= day.date.day %></p>
-            <% if day.preferences.include?(Preference.find_by(day:)) %>
-              <p><i class="fa-solid fa-bookmark status-corner"> <%= day.preferences.count %></i></p>
-            <% end %>
-          </div>
-          <% shifts.each do |shift| %>
-            <% if shift.day == day %>
-              <% if shift.assignments.count == 3 %>
-                <p class="text-dark shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
-              <% else %>
-                <p class="text-light shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
-              <% end %>
-            <% end %>
+    <%= link_to day_path(day), class: "text-dark text-decoration-none" do %>
+      <div class="card-category">
+        <div class="d-flex justify-content-start mb-1" style="width: 100px">
+          <p class="date-corner px-1"><%= day.date.day %></p>
+          <% if day.preferences.include?(Preference.find_by(day:)) %>
+            <p><i class="fa-solid fa-bookmark status-corner"> <%= day.preferences.count %></i></p>
           <% end %>
         </div>
-      <% end %>
-    <% else %>
-      <%= link_to preferences_path(day), class: 'text-dark text-decoration-none' do %>
-        <div class="card-category p">
-          <div class="d-flex justify-content-start mb-1" style="width: 100px">
-            <p class="date-corner px-1"><%= day.date.day %></p>
-            <% if @current_user.preferences.include?(Preference.find_by(day:)) %>
-              <p><i class="fa-solid fa-flag status-corner"></i></p>
-            <% end %>
-          </div>
-          <% shifts.each do |shift| %>
-            <% if shift.day == day %>
-              <% if shift.assignments.count == 3 %>
-                <p class="text-dark shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
-              <% else %>
-                <p class="text-dark shift-empty"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
-              <% end %>
+        <% shifts.each do |shift| %>
+          <% if shift.day == day %>
+            <% if shift.assignments.count == 3 %>
+              <p class="text-dark shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
+            <% else %>
+              <p class="text-light shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
             <% end %>
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     <% end %>
   <% end %>
   <div class="card-category placeholder-grey"></div>

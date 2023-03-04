@@ -1,8 +1,8 @@
 <div class="container position relative">
-  <div class="d-flex justify-content-between">
+  <div class="text-center d-flex justify-content-between">
     <% if @current_user.manager == true %>
       <%= render "days/searchbar", users: @users %>
-      <div class="calendar p-1">
+      <div class="calendar p-3">
         <h1><%= @this_month %></h1>
         <%= render 'days/calendar', shifts: @shifts, days: @days %>
         <form action="/days" method="post"><button class="btn btn-dark my-4 text-center">generate</button></form>
@@ -11,9 +11,13 @@
   <% else %>
     <div class="text-center employee-calendar-center pt-3 position-absolute start-50 translate-middle">
       <h1><%= @this_month %></h1>
-      <%= render 'days/calendar', shifts: @shifts, days: @days %>
+      <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
       <br>
     </div>
   <% end %>
 </div>
-<%# <div class=search><%= render "shifts/user" %>
+<a class="slide" href="#">Slide Out</a>
+<a class="spin" href="#">Spin</a>
+<div id="fade-in" class="box"></div>
+<div id="spin-in" class="box"></div>
+<h1 class="spacing">Letter Spacing</h1>
