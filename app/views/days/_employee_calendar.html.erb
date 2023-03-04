@@ -8,17 +8,21 @@
         <div class=" mt-4">
           <div class="d-flex justify-content-start" style="width: 100px">
             <p class="date-corner px-1"><%= day.date.day %></p>
-            <% if @current_user.preferences.include?(Preference.find_by(day:)) %>
-              <i class="fa-solid fa-flag status-corner"></i>
+            <% Preference.where(day:).each do |preference| %>
+              <% if @current_user.preferences.include?(preference) %>
+                <i class="fa-solid fa-flag status-corner"></i>
+              <% end %>
             <% end %>
           </div>
           <% empty_count = 0 %>
           <% shifts.each do |shift| %>
             <% if shift.day == day %>
-              <% if shift.assignments.count == 3 %>
+              <% if Assignment.where(shift:, user: @current_user).count > 0 %>
+                <p class="shifts shift-work"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
+              <% elsif shift.assignments.count == 3 %>
                 <p class="text-dark shifts shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
               <% elsif shift.assignments.count < 3 && shift.assignments.count > 0 %>
-                <p class="text-light shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
+                <p class="shifts shift-invisible"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
               <% elsif shift.assignments.count == 0 %>
                 <% empty_count += 1 %>
               <% else %>
@@ -27,7 +31,7 @@
             <% end %>
           <% end %>
           <% if empty_count == 3%>
-            <p class="shifts shift-empty">no one scheduled</p>
+            <p class="shifts shift-invisible">no one scheduled</p>
           <% elsif empty_count < 3 && empty_count > 0 %>
             <p class="empty-shift-warning">empty shift</p>
           <% end %>

@@ -9,7 +9,7 @@
           <div class="d-flex justify-content-start" style="width: 100px">
             <p class="date-corner px-1"><%= day.date.day %></p>
             <% if day.preferences.include?(Preference.find_by(day:)) %>
-              <p><i class="fa-solid fa-bookmark status-corner"> <%= day.preferences.count %></i></p>
+              <p class="status-corner-smaller"><i class="fa-solid fa-bookmark"> <%= day.preferences.count %></i></p>
             <% end %>
           </div>
           <% empty_count = 0 %>
@@ -27,7 +27,7 @@
             <% end %>
           <% end %>
           <% if empty_count == 3%>
-            <p class="shifts shift-empty">no one scheduled</p>
+            <p class="shifts shift-invisible">no one scheduled</p>
           <% elsif empty_count < 3 && empty_count > 0 %>
             <p class="empty-shift-warning">empty shift</p>
           <% end %>

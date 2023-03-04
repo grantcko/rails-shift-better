@@ -24,14 +24,26 @@
   top: 7px;
 }
 
+.status-corner-smaller {
+  position: absolute;
+  color: #ffa200;
+  top: 7px;
+  left: 104px;
+  font-size: 11px;
+  font-kerning: normal;
+  text-shadow: none;
+}
+
 .status-corner {
   position: absolute;
   color: #ffa200;
   top: 7px;
   left: 108px;
-  font-size: 14px;
+  font-size: 13px;
   font-kerning: normal;
+  text-shadow: none;
 }
+
 
 .cards {
   display: grid;
@@ -72,6 +84,12 @@
   margin-bottom: 25px;
 }
 
+.shift-invisible {
+  color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+}
+
 .shift-warning {
   color: rgb(255, 255, 255);
   background-color: rgb(255, 81, 81);
@@ -79,6 +97,11 @@
 
 .shift-good {
   background-color: #e2e2e2;
+}
+
+.shift-work {
+  color: rgb(255, 255, 255);
+  background-color: rgb(47, 123, 255);
 }
 
 #empty-day {
