@@ -7,10 +7,10 @@
       <%= submit_tag "Search", class: "btn btn-dark" %>
     <% end %> </p>
   <% users.each do |user| %>
-    <div class="notificationsearch">
+    <div class="notificationsearch d-flex justify-content-between ">
       <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-search" />
       <div class="notification-content text-center">
-       <div id="name-search"> <%= user.name %> <i class="fa-sharp fa-solid fa-circle-check"></i></div>
+        <div id="name-search"> <%= user.name %> <i class="fa-sharp fa-solid fa-circle-check"></i></div>
       </div>
     </div>
   <% end %>

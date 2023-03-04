@@ -1,0 +1,25 @@
+#sidebar {
+  position: absolute;
+  width: 300px;
+  height: 100%;
+  left: -385px;
+  transition: .4s;
+}
+
+#sidebar .toggle-btn {
+  position: absolute;
+  top: 24px;
+  left: 400px;
+}
+
+.toggle-btn span {
+  width: 35px;
+  height: 5px;
+  background: #393939;
+  display: block;
+  margin-top: 4px;
+}
+
+#sidebar.active {
+  left: 0;
+}

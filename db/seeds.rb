@@ -91,7 +91,7 @@ User.all.each do |user|
   3.times do
     day = Day.all.sample
     Preference.create!(
-      category: :dayoff,
+      category: "dayoff",
       user_id: user.id,
       day_id: day.id
     )

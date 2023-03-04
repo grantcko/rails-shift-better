@@ -5,21 +5,33 @@
   <% days.each do |day| %>
     <%= link_to day_path(day), class: "text-dark text-decoration-none" do %>
       <div class="card-category">
-        <div class="d-flex justify-content-start mb-1" style="width: 100px">
-          <p class="date-corner px-1"><%= day.date.day %></p>
-          <% if day.preferences.include?(Preference.find_by(day:)) %>
-            <p><i class="fa-solid fa-bookmark status-corner"> <%= day.preferences.count %></i></p>
-          <% end %>
-        </div>
-        <% shifts.each do |shift| %>
-          <% if shift.day == day %>
-            <% if shift.assignments.count == 3 %>
-              <p class="text-dark shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
-            <% else %>
-              <p class="text-light shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
+        <div class=" mt-4">
+          <div class="d-flex justify-content-start" style="width: 100px">
+            <p class="date-corner px-1"><%= day.date.day %></p>
+            <% if day.preferences.include?(Preference.find_by(day:)) %>
+              <p><i class="fa-solid fa-bookmark status-corner"> <%= day.preferences.count %></i></p>
+            <% end %>
+          </div>
+          <% empty_count = 0 %>
+          <% shifts.each do |shift| %>
+            <% if shift.day == day %>
+              <% if shift.assignments.count == 3 %>
+                <p class="text-dark shifts shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
+              <% elsif shift.assignments.count < 3 && shift.assignments.count > 0 %>
+                <p class="text-light shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
+              <% elsif shift.assignments.count == 0 %>
+                <% empty_count += 1 %>
+              <% else %>
+                <p class="text-light shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
+          <% if empty_count == 3%>
+            <p class="shifts shift-empty">no one scheduled</p>
+          <% elsif empty_count < 3 && empty_count > 0 %>
+            <p class="empty-shift-warning">empty shift</p>
+          <% end %>
+        </div>
       </div>
     <% end %>
   <% end %>
