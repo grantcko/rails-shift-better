@@ -1,32 +1,37 @@
+<%# --# this page isn't need it anymore %>
 <div class="container text-center">
-<br><br><br><br><br><br><br><br><br><br><br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <p>DAY YOU CLICKED ON: <%= @day.date %></p>
   <% @preferences.each do |preference| %>
     <% category = preference.category %>
-
     <% if category == "shift" %>
-
       <% preference.unavailable_shift_ids.each do |id| %>
         <% start_time = Shift.find_by(id:).start_time.hour %>
         <% end_time = Shift.find_by(id:).end_time.hour %>
         <p>You have requested the shift from <%= start_time %>:00 to <%= end_time %>:00 off</p>
       <% end %>
-
     <% elsif category == "dayoff" %>
       <p>You have requested this day off</p>
-
     <% end %>
   <% end %>
-
   <%#  @preferences.each do |preference| %>
     <%# if preference.category == "Time-off" %>
-      <%#= preference.category %>
-      <%#= preference.note %>
+    <%#= preference.category %>
+    <%#= preference.note %>
     <%# else %>
-      <%#= preference.category %>
+    <%#= preference.category %>
     <%# end %>
-  <%# end %>
-
-  <h2>Make a Request on this day</h2>
-  <%= link_to 'Create',new_day_preference_path(@day), class: 'btn btn-success text-decoration-none text-light' %>
-</div>
+    <%# end %>
+    <h2>Make a Request on this day</h2>
+    <%= link_to 'Create',new_day_preference_path(@day), class: 'btn btn-success text-decoration-none text-light' %>
+  </div>

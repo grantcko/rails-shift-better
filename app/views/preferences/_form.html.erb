@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <h1>Make a Request</h1>
+  <h1>Make a Request on <%= @day.date %></h1>
   <%= simple_form_for [@day, @preference] do |f| %>
     <%#= f.input :category, as: :radio_buttons, collection: @types %>
     <%= f.input :category,
