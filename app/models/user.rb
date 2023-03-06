@@ -17,14 +17,14 @@ class User < ApplicationRecord
 
 
   def can_be_assigned?(shift)
-    # if has a preference needs to be respected
+    #### if has a preference day it needs to be respected
     preferences.each { |preference| return false if preference.day == shift.day }
-    # can't be scheduled on a shift that already has 3 or more people
+    #### if someone has a shift preference it needs to be respected
+    # TODO
+    #### can't be scheduled on a shift that already has 3 or more people
     return false if shift.assignments.count >= 3
 
-    # if someone is scheduled with night then next day can't be morning
-    # raise
-    # can't work more than 6 days in a row
+    #### can't work more than 6 days in a row
     work_days = []
     cons_removal_day_ids = []
     work_day_numbers = []
@@ -50,22 +50,23 @@ class User < ApplicationRecord
         end
       end
     end
-    # not work more than once on the same day
+    #### not work more than once on the same day
     return false if work_days.include?(shift.day)
-    # needs 9 days min off in a month
+    #### needs 9 days min off in a month
     return false if work_days.count >= Day.all.count - 9
-    if Assignment.where(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).count > 0 # if there are any shifts scheduled yest
-      today_start = shift.start_time # collect today's shift's start time
+
+    #### if someone is scheduled one night they can't be scheuduled next morning
+    if Assignment.where(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).count.positive? # if there are any shifts scheduled yest for this user
       yest_end = Assignment.find_by(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).shift.end_time # collect yesterday's shifts end time
+      today_start = shift.start_time # collect today's shift's start time
       return false if today_start - yest_end == 10 * 60 * 60 # not valid if there is 10 hours between start and end times
     end
+    #### otherwise they are valid
     return true
   end
 end
 
 private
-
-
 
 # if work_day_numbers.each_cons(2).count >= 6 && work_day_numbers.each_cons(2).all? { |a, b| b == a + 1 }
 #   work_day_numbers = []

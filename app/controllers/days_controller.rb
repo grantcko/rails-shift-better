@@ -29,7 +29,15 @@ class DaysController < ApplicationController
   def create_month
     Assignment.destroy_all
     Shift.all.each do |shift|
+      ordered_users = []
+      User.all.each { |user| ordered_users << user }
+      random_users = []
       User.all.each do |user|
+        num = rand(User.all.count)
+        random_users << ordered_users[num]
+      end
+      num = rand(User.all.count - 1)
+      random_users.each do |user|
         next unless user.can_be_assigned?(shift)
 
         @assignment = Assignment.new(shift:, user:)
