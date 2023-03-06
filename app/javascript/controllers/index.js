@@ -7,5 +7,11 @@ import { application } from "./application"
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import LoadingBarController from "./loading_bar_controller"
+application.register("loading-bar", LoadingBarController)
+
+import LoadingSpinController from "./loading_spin_controller"
+application.register("loading-spin", LoadingSpinController)
+
 import SortableController from "./sortable_controller"
 application.register("sortable", SortableController)
