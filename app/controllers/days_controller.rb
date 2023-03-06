@@ -37,6 +37,7 @@ class DaysController < ApplicationController
         @assignment.save
       end
     end
+    redirect_to days_path
   end
 
   private
