@@ -91,7 +91,7 @@ User.all.each do |user|
   3.times do
     day = Day.all.sample
     Preference.create!(
-      category: :dayoff,
+      category: :day_off,
       user_id: user.id,
       day_id: day.id
     )
@@ -101,7 +101,7 @@ User.all.each do |user|
 
   rand(1..3).times do
     Preference.new(
-      category: %i[dayoff vacation].sample,
+      category: %i[day_off paid_dayoff].sample,
       user_id: user.id,
       day_id: day.id
     )
@@ -109,7 +109,7 @@ User.all.each do |user|
 
   rand(0..2).times do
     preference = Preference.new(
-      category: :shift,
+      category: :time_off,
       user_id: user.id,
       day_id: day.id
     )
