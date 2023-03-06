@@ -20,13 +20,12 @@ class User < ApplicationRecord
     # can't be scheduled on a shift that already has 3 or more people
     return false if shift.assignments.count >= 3
 
-    # can't work more than 6 days in a row
-
     # needs 9 days min off in a month
     # not work more than once on the same day
 
-    # return work_day_validity(shift)
+    # if someone is scheduled with night then next day can't be morning
 
+    # can't work more than 6 days in a row
     work_days = []
     cons_removal_day_ids = []
     work_day_numbers = []
