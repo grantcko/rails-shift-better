@@ -29,6 +29,13 @@ class PreferencesController < ApplicationController
     end
   end
 
+  def destroy
+    @preference = Preference.find(params[:id])
+    authorize @preference
+    @preference.destroy
+    redirect_to preference_path(@preference)
+  end
+
   private
 
   def preference_params
