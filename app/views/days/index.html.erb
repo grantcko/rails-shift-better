@@ -12,8 +12,11 @@
       <div class="calendar p-3">
         <h1><%= @this_month %></h1>
         <%= render 'days/calendar', shifts: @shifts, days: @days %>
-        <form action="/days" method="post"><button class="btn btn-dark my-4 text-center">generate</button></form>
-      </div>
+        <form action="/days" method="post"><button class="btn btn-dark my-4 text-center" data-controller="loading-spin" data-action="click->loading-spin#insertspin">generate</button></form>
+
+
+       <%= render "days/loading_bar", users: @users %>
+
     </div>
   </div>
 </div>

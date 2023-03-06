@@ -1,4 +1,5 @@
-.bg-dark {
-  background-color: black;
-  border-radius: 25px;
+.bg-heading {
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  border-radius: 5px;
+  --bs-bg-opacity: 1;
 }

@@ -6,16 +6,16 @@
     <h5 class="card-title">No Conflict</h5>
     <div class="card-shift m-3">From: <%= @shift.start_time.hour %>:00 - To: <%= @shift.end_time.hour %>:00</div>
     <p>Employee Assigned to this Shift</p>
-      <div data-controller="sortable" data-method="destroy" data-shift-id="<%= @shift.id %>">
-        <% @shift.assignments.each do |assignment| %>
+    <div data-controller="sortable" data-method="destroy" data-shift-id="<%= @shift.id %>">
+      <% @shift.assignments.each do |assignment| %>
         <div class="notification draggable-item" data-id="<%= assignment.id %>">
           <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
           <div class="notification-content text-center">
-          <h5><%= assignment.user.name %></h5>
+            <p><%= assignment.user.name %></p>
           </div>
         </div>
-        <% end %>
-      </div>
+      <% end %>
+    </div>
   </div>
   <div class="card-footer text-muted">
     Drag & Drop to Reassign
