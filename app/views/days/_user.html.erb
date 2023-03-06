@@ -4,6 +4,9 @@
       <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
       <div class="notification-content text-center">
         <p><%= user.name %></p>
+        <% @day_shift_errors.each do |error| %>
+          <%= error %>
+        <% end %>
       </div>
     </ul>
   <% end %>

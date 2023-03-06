@@ -13,7 +13,16 @@ class DaysController < ApplicationController
 
   def show
     @day = Day.find(params[:id])
+    @shifts = Shift.where(day_id: params[:id])
+    @day_shift_errors = []
     authorize @day
+    authorize @shifts
+    @shifts.each do |shift|
+      User.all.each do |user|
+        user.can_be_assigned?(shift)
+        @day_shift_errors << user.shift_errors[0]
+      end
+    end
   end
 
   def create
@@ -29,13 +38,6 @@ class DaysController < ApplicationController
   def create_month
     Assignment.destroy_all
     Shift.all.each do |shift|
-      ordered_users = []
-      User.all.each { |user| ordered_users << user }
-      random_users = []
-      User.all.each do |user|
-        num = rand(User.all.count) - 1
-        random_users << ordered_users[num]
-      end
       random_users.each do |user|
         next unless user.can_be_assigned?(shift)
 
@@ -57,5 +59,13 @@ class DaysController < ApplicationController
     months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"]
     months[days.first.date.month - 1]
+  end
+
+  def random_users
+    ordered_users = []
+    User.all.each { |user| ordered_users << user }
+    random_users = []
+    User.all.each { (num = rand(0...User.all.count)) && (random_users << ordered_users[num]) }
+    random_users
   end
 end
