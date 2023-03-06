@@ -1,5 +1,5 @@
-<div class="container position relative">
-  <% if @current_user.manager == true %>
+<% if @current_user.manager == true %>
+  <div class="position relative">
     <div class="text-center d-flex justify-content-center" id="manager-calendar">
       <div id="sidebar">
         <div class="toggle-btn" id="toggle">
@@ -19,11 +19,43 @@
 
     </div>
   </div>
+</div>
 <% else %>
-  <div class="text-center employee-calendar-center pt-3 position-absolute start-50 translate-middle my-3">
-    <h1><%= @this_month %></h1>
-    <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
-    <br>
+  <div class="container">
+    <h1 class= "text-center"><%= @this_month %></h1>
+    <div class="text-center employee-calendar-center pt-3 d-flex justify-content-between">
+      <div class= "d-flex justfy-content-between">
+        <div>
+          <h3 class= "me-5">Day Off</h3>
+          <% current_user.preferences.where(category: "day_off").each do |preference| %>
+            <p>
+              <%= preference.category %>
+              <%= preference.day.date %>
+            </p>
+          <% end %>
+          <h3 class= "me-5">Paid Day Off</h3>
+          <% current_user.preferences.where(category: "paid_dayoff").each do |preference| %>
+            <p>
+              <%= preference.category %>
+              <%= preference.day.date %>
+            </p>
+          <% end %>
+          <h3 class= "me-5">Time Off</h3>
+          <% current_user.preferences.where(category: "time_off").each do |preference| %>
+            <p>
+              <%= preference.category %>
+              <%= preference.day.date %>
+              <% ids = preference.unavailable_shift_ids %>
+              <% ids.each do |id| %>
+                <%= Shift.find(id).start_time %>
+                <%= Shift.find(id).end_time %>
+              <% end %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+      <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
+      <br>
+    </div>
   </div>
 <% end %>
-</div>
