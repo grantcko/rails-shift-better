@@ -15,7 +15,7 @@
       <label for="preference-shift-<%= shift.id %>"><%= shift.start_time.strftime("%I:%M %p") %> - <%= shift.end_time.strftime("%I:%M %p") %></label><br>
     <% end %>
     <%= f.input :note %>
-    <a class="btn btn-outline-secondary" href="/days" role="button">Back</a>
+    <%= link_to 'Back', days_path, class:'btn card-green' %>
     <%= f.submit 'Confirm' %>
   <% end %>
 </div>

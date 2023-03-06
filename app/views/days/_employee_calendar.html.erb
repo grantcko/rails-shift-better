@@ -1,10 +1,10 @@
 <div class="d-flex mb-3">
-  <div class="p-2 cards">
+  <div class="cards">
     <% 3.times do %>
       <div class="card-category placeholder-grey"></div>
     <% end %>
     <% days.each do |day| %>
-      <%= link_to preferences_path(day), class: "text-dark text-decoration-none" do %>
+      <%= link_to new_day_preference_path(day), class: "text-dark text-decoration-none" do %>
         <div class="card-category">
           <div class=" mt-4">
             <div class="d-flex justify-content-start" style="width: 100px">
@@ -14,15 +14,15 @@
                   <i class="fa-solid fa-flag status-corner"></i>
                 <% end %>
               <% end %>
-            <% end %>
-          </div>
-          <% empty_count = 0 %>
-          <% shifts.each do |shift| %>
-            <% if shift.day == day %>
-              <% if Assignment.where(shift:, user: @current_user).count > 0 %>
-                <p class="shifts shift-work"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
-              <% elsif shift.assignments.count == 0 %>
-                <% empty_count += 1 %>
+            </div>
+            <% empty_count = 0 %>
+            <% shifts.each do |shift| %>
+              <% if shift.day == day %>
+                <% if Assignment.where(shift:, user: @current_user).count > 0 %>
+                  <p class="shifts shift-work"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
+                <% elsif shift.assignments.count == 0 %>
+                  <% empty_count += 1 %>
+                <% end %>
               <% end %>
             <% end %>
             <% if empty_count == 3%>
