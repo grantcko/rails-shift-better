@@ -19,14 +19,8 @@
             <% if shift.day == day %>
               <% if Assignment.where(shift:, user: @current_user).count > 0 %>
                 <p class="shifts shift-work"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
-              <% elsif shift.assignments.count == 3 %>
-                <p class="text-dark shifts shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
-              <% elsif shift.assignments.count < 3 && shift.assignments.count > 0 %>
-                <p class="shifts shift-invisible"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
               <% elsif shift.assignments.count == 0 %>
                 <% empty_count += 1 %>
-              <% else %>
-                <p class="text-light shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
               <% end %>
             <% end %>
           <% end %>
