@@ -37,21 +37,21 @@
   width: fit-content;
 }
 
-.card-shift {
-  --bs-badge-padding-x: 0.65em;
-  --bs-badge-padding-y: 0.35em;    /* --bs-badge-font-size: 0.75em; */
-    /* --bs-badge-font-weight: 700; */
-  --bs-badge-color: #fff;
-  --bs-badge-border-radius: 2px;
-  display: inline-block;
-  padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
-  font-size: var(--bs-badge-font-size);
-  font-weight: var(--bs-badge-font-weight);
-  line-height: 1;
-  color: var(--bs-badge-color);
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: var(--bs-badge-border-radius);
+.card-green {
+  border-radius: 4px;
   background-color: #1edd88;
+  color: white;
+}
+
+.card-red {
+  border-radius: 4px;
+  background-color: #ff5151;
+  color: white;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+  color: var(--bs-card-color);
+  width: max-content;
 }
