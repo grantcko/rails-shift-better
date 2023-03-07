@@ -14,15 +14,25 @@ class DaysController < ApplicationController
   def show
     @day = Day.find(params[:id])
     @shifts = Shift.where(day_id: params[:id])
-    @day_shift_errors = []
+    @day_shift_errors = {}
     authorize @day
     authorize @shifts
-    @shifts.each do |shift|
-      User.all.each do |user|
-        user.can_be_assigned?(shift)
-        @day_shift_errors << user.shift_errors[0]
+    User.all.each { |user| user.shift_errors = [] }
+    User.all.each do |user| # each user
+      @shifts.each do |shift| # each shift on that day
+        user.can_be_assigned?(shift) # loading up error messages per shift
+        # loading up the error given for each shift
+        @day_shift_errors[[user.id, user.shift_errors[0]]] = user.shift_errors[1]
       end
+      # raise
     end
+
+    # @shifts.each do |shift|
+    #   User.all.each do |user|
+    #     user.can_be_assigned?(shift)
+    #     @day_shift_errors["#{user.id}:#{user.shift_errors[0]}"] = "#{user.shift_errors[1]} at shift #{user.shift_errors[0]}"
+    #   end
+    # end
   end
 
   def create
