@@ -5,4 +5,7 @@ function show() {
   document.getElementById('manager-calendar').classList.toggle('justify-content-end');
 }
 
-document.getElementById('toggle').addEventListener("click", show)
+const container = document.getElementById('toggle')
+if (container) {
+  container.addEventListener("click", show)
+}
