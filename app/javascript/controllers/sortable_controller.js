@@ -30,6 +30,9 @@ export default class extends Controller {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        const div = `shift-status-${data.shift_id}`
+        console.log(div)
+        document.getElementById(div).innerHTML = data.partial
       });
   }
 
@@ -43,6 +46,9 @@ export default class extends Controller {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        const div = `shift-status-${data.shift_id}`
+        console.log(div)
+        document.getElementById(div).innerHTML = data.partial
       });
   }
 }

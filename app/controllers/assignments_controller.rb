@@ -4,7 +4,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new(assignment_params)
     authorize @assignment
     @assignment.save
-    render json: @assignment
+    render json: { shift_id: @assignment.shift.id, partial: render_to_string(partial: "shifts/status", locals: {shift: @assignment.shift})}
   end
 
   def update
@@ -17,7 +17,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(params[:id])
     authorize @assignment
     @assignment.destroy
-    render json: {status: 'destroy'}
+    render json: { shift_id: @assignment.shift.id, partial: render_to_string(partial: "shifts/status", locals: {shift: @assignment.shift})}
   end
 
   private
