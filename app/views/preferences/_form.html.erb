@@ -1,5 +1,6 @@
 <div class="container mt-5">
-  <h1>Make a Request on <%= @day.date %></h1>
+  <h4>Make a Request on <%= @day.date.strftime("%A, %-d %B %Y") %>
+  </h4>
   <%= simple_form_for [@day, @preference] do |f| %>
     <%#= f.input :category, as: :radio_buttons, collection: @types %>
     <%= f.input :category,
@@ -15,7 +16,7 @@
       <label for="preference-shift-<%= shift.id %>"><%= shift.start_time.strftime("%I:%M %p") %> - <%= shift.end_time.strftime("%I:%M %p") %></label><br>
     <% end %>
     <%= f.input :note %>
-    <%= link_to 'Back', days_path, class:'btn card-green' %>
-    <%= f.submit 'Confirm' %>
+    <%= link_to 'Back', days_path, class:'btn btn-success text-light' %>
+    <%= f.submit 'Confirm', class:'btn btn-success text-light'  %>
   <% end %>
 </div>
