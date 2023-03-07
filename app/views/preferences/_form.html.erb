@@ -9,7 +9,7 @@
             collection_wrapper_class: 'category-wrapper',
             item_wrapper_class: 'category-item',
             input_html: {class: 'category-selector'},
-            collection: @types %>
+            collection: Preference::CATEGORY %>
     <p>Please Select Unavailable Shift (Time-off)</p>
     <% @day.shifts.each do |shift| %>
       <%= check_box_tag "preference[unavailable_shift_ids][]", shift.id, nil, id: "preference-shift-#{shift.id}" %>
