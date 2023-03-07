@@ -15,22 +15,29 @@ class User < ApplicationRecord
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
 
-
   def can_be_assigned?(shift)
+    self.shift_errors = []
     #### if has a preference day it needs to be respected
-    preferences.each { |preference| return false if preference.day == shift.day }
+    preferences.each do |preference|
+      if preference.day == shift.day
+        update_error_messages(:day_preference, self, shift)
+        return false
+      end
+    end
     #### if someone has a shift preference it needs to be respected
     # TODO
     #### can't be scheduled on a shift that already has 3 or more people
-    return false if shift.assignments.count >= 3
+    if shift.assignments.count >= 3
+      update_error_messages(:filled, self, shift)
+      return false
+    end
 
     #### can't work more than 6 days in a row
     work_days = []
-    cons_removal_day_ids = []
     work_day_numbers = []
     assignments = Assignment.where(user: self)
     assignments.each do |assignment|
-      work_days << assignment.shift.day unless work_days.include?(assignment.shift.day)
+      work_days << assignment.shift.day unless work_days.include?(assignment.shift.day) # collect work days
       work_day_numbers << assignment.shift.day.id
       work_day_numbers.each_cons(6).each do |a, b, c, d, e, f|
         ids = [a, b, c, d, e, f]
@@ -45,37 +52,50 @@ class User < ApplicationRecord
           if shift.day.id == seventh_day_id && unavailable_day_ids.exclude?(shift.day.id) # user not valid if the current shift is the 7th consecutive shift and it hasn't already been removed
             work_day_numbers.delete(seventh_day_id - 1)
             unavailable_day_ids << seventh_day_id
+            update_error_messages(:seventh_day, self, shift)
             return false
           end
         end
       end
     end
-    #### not work more than once on the same day
-    return false if work_days.include?(shift.day)
-    #### needs 9 days min off in a month
-    return false if work_days.count >= Day.all.count - 9
 
+    #### not work more than once on the same day
+    if work_days.include?(shift.day)
+      update_error_messages(:same_day, self, shift)
+      return false
+    end
+    #### needs 9 days min off in a month
+    if work_days.count >= Day.all.count - 9
+      update_error_messages(:nine_off, self, shift)
+      return false
+    end
     #### if someone is scheduled one night they can't be scheuduled next morning
     if Assignment.where(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).count.positive? # if there are any shifts scheduled yest for this user
       yest_end = Assignment.find_by(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).shift.end_time # collect yesterday's shifts end time
       today_start = shift.start_time # collect today's shift's start time
-      return false if today_start - yest_end == 10 * 60 * 60 # not valid if there is 10 hours between start and end times
+      if today_start - yest_end == 10 * 60 * 60
+        update_error_messages(:late_early, self, shift)
+        return false # not valid if there is 10 hours between start and end times
+      end
     end
     #### otherwise they are valid
     return true
   end
+
+  def update_error_messages(key, user, shift)
+    all_error_messages = {
+      day_preference: "day_preference",
+      shift_preference: "shift_preference",
+      filled: "filled",
+      seventh_day: "seventh_day",
+      same_day: "same_day",
+      nine_off: "nine_off",
+      late_early: "late_early"
+    }
+
+    #  all_error_messages.delete(key)
+    user.shift_errors << [shift.id, all_error_messages[key]] # BROKEN - it is loading the db with the errors it doesn't probably have
+    user.save
+    # raise
+  end
 end
-
-private
-
-# if work_day_numbers.each_cons(2).count >= 6 && work_day_numbers.each_cons(2).all? { |a, b| b == a + 1 }
-#   work_day_numbers = []
-#   return false
-# end
-
-# cons_removal_day_ids.each do |id|
-#   if work_day_numbers.include?(id)
-#     raise
-#     return false
-#   end
-# end
