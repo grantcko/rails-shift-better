@@ -35,7 +35,7 @@ User.create!(
   password: '123123'
 )
 
-10.times do
+13.times do
   name = Faker::Name.name
   User.create!(
     name:,
