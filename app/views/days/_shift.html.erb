@@ -17,7 +17,12 @@
             <% shift.assignments.each do |assignment| %>
               <div class="notification draggable-item" data-id="<%= assignment.id %>">
                 <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
-                <div class="notification-content text-center"><%= assignment.user.name %></div>
+                <div class="notification-content text-center">
+                  <%= assignment.user.name %>
+                  <% @day_shift_errors.each do |error| %>
+                    <p><em><%= error[1] if error[0][0] == assignment.user.id && error[0][1].to_i == shift.id %></em></p>
+                  <% end %>
+                </div>
               </div>
             <% end %>
           </div>
