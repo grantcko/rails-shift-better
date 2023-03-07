@@ -111,7 +111,8 @@ User.all.each do |user|
     preference = Preference.new(
       category: :time_off,
       user_id: user.id,
-      day_id: day.id
+      day_id: day.id,
+      unavailable_shift_ids: Shift.where(day:).sample.id
     )
     preference.unavailable_shift_ids = [] << Shift.where(day: preference.day).sample.id
     preference.note = notes.sample

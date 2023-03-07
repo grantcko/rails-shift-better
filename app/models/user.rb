@@ -17,12 +17,16 @@ class User < ApplicationRecord
 
   def can_be_assigned?(shift)
     self.shift_errors = []
-    #### if someone has a shift preference it needs to be respected
-    # TODO
     #### if has a preference day it needs to be respected
     preferences.each do |preference|
-      if preference.day == shift.day
+      if preference.day == shift.day && preference.category != "time_off"
         update_error_messages(:day_preference, self, shift)
+        return false
+      end
+
+      #### if someone has a shift preference it needs to be respected
+      if preference.unavailable_shift_ids.include?(shift.id)
+        update_error_messages(:shift_preference, self, shift)
         return false
       end
     end
@@ -66,8 +70,11 @@ class User < ApplicationRecord
 
     #### needs 9 days min off in a month
     # raise
-    if self.assignments.exists? && work_days.count >= Day.all.count - 9 # && self.assignments.last.shift.id < shift.id
+    if self.assignments.exists? && work_days.count == Day.all.count - 9 # && self.assignments.last.shift.id < shift.id
       update_error_messages(:nine_off, self, shift)
+      return false
+    elsif self.assignments.exists? && work_days.count > Day.all.count - 9
+      update_error_messages(:less_nine_off)
       return false
     end
     #### not work more than once on the same day
@@ -94,7 +101,8 @@ class User < ApplicationRecord
       filled: "filled. otherwise, available",
       seventh_day: "seventh_day",
       same_day: "scheduled today",
-      nine_off: "less than 9 days off",
+      nine_off: "max work days reached",
+      less_nine_off: "over max work day limit",
       available: "available",
       late_early: "scheduled on last shift yesterday"
     }
