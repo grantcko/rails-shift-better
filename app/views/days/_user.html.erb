@@ -3,7 +3,18 @@
     <ul class="notification draggable-item" data-id="<%= user.id %>">
       <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
       <div class="notification-content text-center">
-        <p><%= user.name %></p>
+        <p><strong><%= user.name %></strong></p>
+        <% @day_shift_errors.each do |error| %>
+          <% shift_id = error[0][1] %>
+          <% user_id = error[0][0] %>
+          <% error_message = error[1] %>
+          <% if user_id == user.id && shift_id %>
+            <div class="d-flex justify-content-between">
+              <p><%= "#{Shift.find(shift_id).start_time.strftime("%H:%M")} - #{Shift.find(shift_id).end_time.strftime("%H:%M")}"%></p>
+              <p><em><%="#{error_message}"%></em></p>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </ul>
   <% end %>
