@@ -94,7 +94,7 @@ class User < ApplicationRecord
       filled: "filled. otherwise, available",
       seventh_day: "seventh_day",
       same_day: "scheduled today",
-      nine_off: "nine_off",
+      nine_off: "less than 9 days off",
       available: "available",
       late_early: "scheduled on last shift yesterday"
     }
