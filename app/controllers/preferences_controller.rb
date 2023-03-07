@@ -9,6 +9,7 @@ class PreferencesController < ApplicationController
   end
 
   def new
+    @preferences = Preference.all
     @preference = Preference.new
     authorize @preference
     @types = []
