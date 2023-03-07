@@ -2,12 +2,10 @@
   <% if @current_user.manager == true %>
     <%# MANAGER EMPLOYEE %>
     <div class="position relative">
-      <div class="text-center d-flex justify-content-center" id="manager-calendar">
-        <div id="sidebar">
+      <div class="text-center d-flex justify-content-center" id="manager-calendar" data-controller="slideout">
+        <div id="sidebar" data-slideout-target="sidebar">
           <div class="toggle-btn" id="toggle">
-            <span></span>
-            <span></span>
-            <span></span>
+            <i class="fa-solid fa-arrows-left-right-to-line" data-action="click->slideout#show"></i>
           </div>
           <%= render "days/searchbar", users: @users %>
         </div>
