@@ -1,0 +1,18 @@
+.banner {
+  background-size: cover;
+  background-position: center;
+  padding: 200px 0;
+  height: 100vh;
+  background-color: white;
+  background-attachment: fixed;
+    background-position: 400px 60%;
+    background-repeat: no-repeat;
+}
+
+.banner h1 {
+  margin: 0;
+  color: rgb(0, 0, 0);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 32px;
+  font-weight: bold;
+}
