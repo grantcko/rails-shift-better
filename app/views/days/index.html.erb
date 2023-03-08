@@ -10,9 +10,13 @@
           <%= render "days/searchbar", users: @users %>
         </div>
         <div class="calendar p-3">
-          <h1><%= @this_month %></h1>
+          <div class="generate-top">
+            <h2 class="calendar-month"><%= @this_month %></h2>
+            <%= render 'days/shift_errors', days: @days %>
+            <p class="testtest">NO CONFLICTS</p>
+            <form action="/days" method="post"><i class="fa-solid fa-arrow-right mx-2"></i><button class="generate-btn" data-controller="loading-spin" data-action="click->loading-spin#insertspin">Click to Generate Schedule</button></form>
+          </div>
           <%= render 'days/calendar', shifts: @shifts, days: @days %>
-          <form action="/days" method="post"><button class="btn btn-dark my-4 text-center" data-controller="loading-spin" data-action="click->loading-spin#insertspin">Generate Schedule</button></form>
           <%= render "days/loading_bar", users: @users %>
         </div>
       </div>
