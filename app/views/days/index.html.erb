@@ -1,4 +1,4 @@
-<div class="container position relative">
+<div style="margin-left:4.0rem;">
   <% if @current_user.manager == true %>
     <%# MANAGER CALENDAR %>
     <div class="position relative">
@@ -18,7 +18,7 @@
         </div>
       <% else %>
         <%# EMPLOYEE CALENDAR %>
-        <div class="container">
+        <div class="d-flex h-100 w-100 position-relative" style="margin-left:4.5rem;">
           <div class="text-center d-flex justify-content-center" id="manager-calendar">
             <%= render 'days/preference_bar', users: @users %>
             <div class="calendar p-3">

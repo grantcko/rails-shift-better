@@ -51,3 +51,14 @@
   color: var(--bs-card-color);
   width: max-content;
 }
+
+.card-sticky {
+  position:-webkit-sticky;
+  position:sticky;
+  top:0;
+}
+
+.card-preference {
+  margin: 0 auto;
+  padding: 0 10px;
+}
