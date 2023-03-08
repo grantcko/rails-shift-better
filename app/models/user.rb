@@ -75,7 +75,7 @@ class User < ApplicationRecord
       update_error_messages(:nine_off, self, shift)
       return false
     elsif self.assignments.exists? && work_days.count > Day.all.count - 9
-      update_error_messages(:less_nine_off)
+      update_error_messages(:less_nine_off, self, shift)
       return false
     end
     #### not work more than once on the same day
@@ -103,7 +103,7 @@ class User < ApplicationRecord
       seventh_day: "seventh_day",
       same_day: "scheduled today",
       nine_off: "max work days reached",
-      less_nine_off: "over max work day limit",
+      less_nine_off: "max work days supassed",
       available: "available",
       late_early: "scheduled on last shift yesterday"
     }
