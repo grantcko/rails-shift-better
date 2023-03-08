@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :preferences
+  has_one_attached :photo
   validates :name, presence: true
   include PgSearch::Model
   pg_search_scope :search_by_name,
