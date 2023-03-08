@@ -9,11 +9,11 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body class="h-100">
-    <div class="d-flex">
-      <%= render "shared/navbar" %>
-      <div class="d-flex h-100 w-100 position-relative" style="margin-left:4.5rem;">
-        <%= yield %>
-      </div>
+    <%= render "shared/navbar" %>
+    <div class="content">
+    <div class="position-relative">
+      <%= yield %>
+    </div>
     </div>
     <%= render "shared/flashes" %>
   </body>

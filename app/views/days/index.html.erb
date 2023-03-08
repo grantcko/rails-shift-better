@@ -1,32 +1,37 @@
 <div class="container position relative">
   <% if @current_user.manager == true %>
-    <%# MANAGER EMPLOYEE %>
+    <%# MANAGER CALENDAR %>
     <div class="position relative">
-      <div class="text-center d-flex justify-content-center" id="manager-calendar" data-controller="slideout">
-        <div id="sidebar" data-slideout-target="sidebar">
-          <div class="toggle-btn" id="toggle">
-            <i class="fa-solid fa-arrows-left-right-to-line" data-action="click->slideout#show"></i>
-          </div>
-          <%= render "days/searchbar", users: @users %>
-        </div>
-        <div class="calendar p-3">
-          <h1><%= @this_month %></h1>
-          <%= render 'days/calendar', shifts: @shifts, days: @days %>
-          <form action="/days" method="post"><button class="btn btn-dark my-4 text-center" data-controller="loading-spin" data-action="click->loading-spin#insertspin">Generate Schedule</button></form>
-          <%= render "days/loading_bar", users: @users %>
-        </div>
-      </div>
-    <% else %>
-      <%# EMPLOYEE CALENDAR %>
-      <div class="container">
-        <div class="text-center d-flex justify-content-center" id="manager-calendar">
-          <%= render 'days/preference_bar', users: @users %>
+      <div class="d-flex justify-content-center" id="manager-calendar">
+        <%= render "days/searchbar", users: @users %>
+        <div class="text-center calendar p-3">
           <div class="calendar p-3">
-            <h1><%= @this_month %></h1>
-            <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
+            <div class="generate-top">
+              <h2 class="calendar-month"><%= @this_month %></h2>
+              <%= render 'days/shift_errors', days: @days %>
+              <form action="/days" method="post"><i class="fa-solid fa-arrow-right mx-2"></i><button class="generate-btn" data-controller="loading-spin" data-action="click->loading-spin#insertspin">Click to Generate Schedule</button></form>
+            </div>
+            <%= render 'days/calendar', shifts: @shifts, days: @days %>
+            <%= render "days/loading_bar", users: @users %>
+            <%#= link_to "Back", days_path, class:"text-decoration-none text-dark"  %>
+          </div>
+        </div>
+      <% else %>
+        <%# EMPLOYEE CALENDAR %>
+        <div class="container">
+          <div class="text-center d-flex justify-content-center" id="manager-calendar">
+            <%= render 'days/preference_bar', users: @users %>
+            <div class="calendar p-3">
+              <h1><%= @this_month %></h1>
+              <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+  <%# <div id="sidebar" data-slideout-target="sidebar">
+  <div class="toggle-btn" id="toggle">
+    <i class="fa-solid fa-arrows-left-right-to-line" data-action="click->slideout#show"></i>
+  </div>
+</div> %>

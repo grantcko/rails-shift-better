@@ -2,6 +2,9 @@ class DaysController < ApplicationController
   def index
     @days = policy_scope(Day)
     @shifts = Shift.all
+    if params[:user_id]
+      @shifts = @shifts.joins(:assignments).where(assignments: {user_id: params[:user_id]})
+    end
     @this_month = month_of_days(@days)
     @current_user = current_user
     if params[:query].present?
