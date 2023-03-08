@@ -8,7 +8,7 @@
     <% end %> </p>
   <% users.each do |user| %>
     <div class="notificationsearch d-flex justify-content-between ">
-      <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-search" />
+      <%= cl_image_tag user.photo.key, class: "rounded-circle", width: 36, height: 36 %>
       <div class="notification-content text-center">
         <div id="name-search">
           <%= user.name %>
