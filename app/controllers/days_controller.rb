@@ -27,15 +27,7 @@ class DaysController < ApplicationController
         # loading up the error given for each shift
         @day_shift_errors[[user.id, user.shift_errors[0]]] = user.shift_errors[1]
       end
-      # raise
     end
-
-    # @shifts.each do |shift|
-    #   User.all.each do |user|
-    #     user.can_be_assigned?(shift)
-    #     @day_shift_errors["#{user.id}:#{user.shift_errors[0]}"] = "#{user.shift_errors[1]} at shift #{user.shift_errors[0]}"
-    #   end
-    # end
   end
 
   def create
