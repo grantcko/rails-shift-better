@@ -13,8 +13,11 @@ application.register("loading-bar", LoadingBarController)
 import LoadingSpinController from "./loading_spin_controller"
 application.register("loading-spin", LoadingSpinController)
 
+import SlideoutController from "./slideout_controller"
+application.register("slideout", SlideoutController)
+
 import SortableController from "./sortable_controller"
 application.register("sortable", SortableController)
 
-// import TooltipController from "./tooltip_controller"
-// application.register("tooltip", TooltipController)
+import TooltipController from "./tooltip_controller"
+application.register("tooltip", TooltipController)

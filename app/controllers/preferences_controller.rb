@@ -12,8 +12,6 @@ class PreferencesController < ApplicationController
     @preferences = Preference.all
     @preference = Preference.new
     authorize @preference
-    @types = []
-    Preference.categories.each { |category| @types << category[0] }
     @day = Day.find(params[:day_id])
   end
 

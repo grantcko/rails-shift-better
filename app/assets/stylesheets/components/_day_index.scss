@@ -12,12 +12,14 @@
   left: 400px;
 }
 
-.toggle-btn span {
-  width: 35px;
-  height: 5px;
-  background: #393939;
+.toggle-btn i {
+  font-size: 16px;
+  color: #787676;
   display: block;
   margin-top: 4px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 #sidebar.active {
