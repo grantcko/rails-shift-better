@@ -8,12 +8,12 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-  <body>
-    <div>
-      <%= render "shared/navbar" %>
-      <div class="w-100 position-relative" style="margin-left:4.5rem;">
-        <%= yield %>
-      </div>
+  <body class="h-100">
+    <%= render "shared/navbar" %>
+    <div class="content">
+    <div class="position-relative">
+      <%= yield %>
+    </div>
     </div>
     <%= render "shared/flashes" %>
   </body>
