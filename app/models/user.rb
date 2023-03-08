@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :preferences
+  has_one_attached :photo
   validates :name, presence: true
   include PgSearch::Model
   pg_search_scope :search_by_name,
@@ -17,6 +18,8 @@ class User < ApplicationRecord
 
   def can_be_assigned?(shift)
     self.shift_errors = []
+    #### if someone has a shift preference it needs to be respected
+    # TODO
     #### if has a preference day it needs to be respected
     preferences.each do |preference|
       if preference.day == shift.day
@@ -24,12 +27,15 @@ class User < ApplicationRecord
         return false
       end
     end
-    #### if someone has a shift preference it needs to be respected
-    # TODO
-    #### can't be scheduled on a shift that already has 3 or more people
-    if shift.assignments.count >= 3
-      update_error_messages(:filled, self, shift)
-      return false
+
+    #### if someone is scheduled one night they can't be scheuduled next morning
+    if Assignment.where(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).count.positive? # if there are any shifts scheduled yest for this user
+      yest_end = Assignment.find_by(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).shift.end_time # collect yesterday's shifts end time
+      today_start = shift.start_time # collect today's shift's start time
+      if today_start - yest_end == 10 * 60 * 60
+        update_error_messages(:late_early, self, shift)
+        return false # not valid if there is 10 hours between start and end times
+      end
     end
 
     #### can't work more than 6 days in a row
@@ -59,42 +65,43 @@ class User < ApplicationRecord
       end
     end
 
+    #### needs 9 days min off in a month
+    # raise
+    if self.assignments.exists? && work_days.count >= Day.all.count - 9 # && self.assignments.last.shift.id < shift.id
+      update_error_messages(:nine_off, self, shift)
+      return false
+    end
     #### not work more than once on the same day
     if work_days.include?(shift.day)
       update_error_messages(:same_day, self, shift)
       return false
     end
-    #### needs 9 days min off in a month
-    if work_days.count >= Day.all.count - 9
-      update_error_messages(:nine_off, self, shift)
+
+    #### can't be scheduled on a shift that already has 3 or more people
+    if shift.assignments.count >= 3
+      update_error_messages(:filled, self, shift)
       return false
     end
-    #### if someone is scheduled one night they can't be scheuduled next morning
-    if Assignment.where(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).count.positive? # if there are any shifts scheduled yest for this user
-      yest_end = Assignment.find_by(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).shift.end_time # collect yesterday's shifts end time
-      today_start = shift.start_time # collect today's shift's start time
-      if today_start - yest_end == 10 * 60 * 60
-        update_error_messages(:late_early, self, shift)
-        return false # not valid if there is 10 hours between start and end times
-      end
-    end
+
     #### otherwise they are valid
+    update_error_messages(:available, self, shift)
     return true
   end
 
   def update_error_messages(key, user, shift)
     all_error_messages = {
-      day_preference: "day_preference",
+      day_preference: "day off requested",
       shift_preference: "shift_preference",
-      filled: "filled",
+      filled: "filled. otherwise, available",
       seventh_day: "seventh_day",
-      same_day: "same_day",
-      nine_off: "nine_off",
-      late_early: "late_early"
+      same_day: "scheduled today",
+      nine_off: "less than 9 days off",
+      available: "available",
+      late_early: "scheduled on last shift yesterday"
     }
 
     #  all_error_messages.delete(key)
-    user.shift_errors << [shift.id, all_error_messages[key]] # BROKEN - it is loading the db with the errors it doesn't probably have
+    (user.shift_errors << shift.id) && (user.shift_errors << all_error_messages[key])
     user.save
     # raise
   end

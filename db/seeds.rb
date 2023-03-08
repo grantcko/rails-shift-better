@@ -22,28 +22,52 @@ puts "\n"
 puts "\n\nCREATING INSTANCES...\n\n"
 
 #### USER
-User.create!(
+taka = User.create!(
   manager: true,
   name: "taka",
   email: "taka@gmail.com",
   password: '123123'
 )
+p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073467/Shift%20better%20user%20profile%20pics/117798839_eiqm5g.jpg"
+  file = URI.open(photo_url)
+  taka.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-User.create!(
+user = User.create!(
   name: "grant",
   email: "grant@gmail.com",
   password: '123123'
 )
+p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073334/Shift%20better%20user%20profile%20pics/121933082_cji135.jpg"
+  file = URI.open(photo_url)
+  user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-10.times do
-  name = Faker::Name.name
-  User.create!(
-    name:,
-    email: "#{name.split.first}@gmail.com",
+user = User.create!(
+  name: "anik",
+  email: "anik@gmail.com",
+  password: '123123'
+)
+p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073512/Shift%20better%20user%20profile%20pics/80834097_qjxoyt.jpg"
+  file = URI.open(photo_url)
+  user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+
+user = User.create!(
+    name: "tan",
+    email: "tan@gmail.com",
     password: '123123'
   )
-end
-puts "created #{User.count} users"
+  p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073499/Shift%20better%20user%20profile%20pics/121886405_wm7rea.jpg"
+    file = URI.open(photo_url)
+    user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+
+# 13.times do
+#   name = Faker::Name.unique.name
+#   User.create!(
+#     name:,
+#     email: "#{name.split.first}@gmail.com",
+#     password: '123123'
+#   )
+# end
+# puts "created #{User.count} users"
 
 #### DAY
 #### SHIFT

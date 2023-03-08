@@ -5,11 +5,9 @@
         <div class="mb-0 mb-0 pt-5 px-5 mx-3">
           <h5><i class="fa-solid fa-business-time"></i> From: <%= shift.start_time.strftime("%H:%M") %> - To: <%= shift.end_time.strftime("%H:%M") %></h5>
           <hr>
-          <% if shift.assignments.count == 3 %>
-            <p class="card-green p-2"><i class="fa-solid fa-check"></i> No Conflict</p>
-          <% else %>
-            <div class="card-red p-2"><i class="fa-solid fa-triangle-exclamation fa-fade"></i> Conflict</div>
-          <% end %>
+          <div id="shift-status-<%= shift.id %>">
+            <%= render "shifts/status", shift: shift %>
+          </div>
         </div>
         <div class="m-2">
           Employee Assigned
@@ -17,7 +15,12 @@
             <% shift.assignments.each do |assignment| %>
               <div class="notification draggable-item" data-id="<%= assignment.id %>">
                 <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
-                <div class="notification-content text-center"><%= assignment.user.name %></div>
+                <div class="notification-content text-center">
+                  <%= assignment.user.name %>
+                  <% @day_shift_errors.each do |error| %>
+                    <p><em><%= error[1] if error[0][0] == assignment.user.id && error[0][1].to_i == shift.id %></em></p>
+                  <% end %>
+                </div>
               </div>
             <% end %>
           </div>

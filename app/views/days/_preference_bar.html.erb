@@ -1,0 +1,49 @@
+<div class="container mt-2">
+  <div class="card-green p-1 mb-2">
+    <h5>Your Request</h5>
+  </div>
+  <div class="card mb-3">
+    <strong class="p-2">Day-Off</strong>
+    <p class="text-success"><%= current_user.preferences.where(category:"day_off").count %>/3 limited</p>
+    <div class="text-left">
+      <% current_user.preferences.where(category: "day_off").each do |preference| %>
+        <p><%= preference.day.date.strftime("%a, %-d %B") %><%= link_to preference_path(preference), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this #{preference.category}?" }, class: 'text-primary text-decoration-none' do %>
+            <i class="fa-regular fa-trash-can fa-xs" style=" color: #e03131; "></i>
+          <% end %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <strong class="p-2">Paid Day-Off</strong>
+    <div>
+      <% current_user.preferences.where(category: "paid_dayoff").each do |preference| %>
+        <% if current_user.preferences.empty? == false %>
+          <p><%= preference.day.date.strftime("%a, %-d %B") %><%= link_to preference_path(preference), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this #{preference.category}?" }, class: 'text-primary text-decoration-none' do %>
+              <i class="fa-regular fa-trash-can fa-2xs" style=" color: #e03131; "></i>
+            <% end %></p>
+        <% else %>
+          <p>You don't have any Paid Day-Off</p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <strong class="p-2">Time-Off</strong>
+    <div>
+      <% current_user.preferences.where(category: "time_off").each do |preference| %>
+        <% if current_user.preferences.empty? == false %>
+          <p><%= preference.day.date.strftime("%a, %-d %B") %><%= link_to preference_path(preference), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this #{preference.category}?" }, class: 'text-primary text-decoration-none' do %>
+              <i class="fa-regular fa-trash-can fa-2xs" style=" color: #e03131; "></i>
+            <% end %></p>
+        <% else %>
+          <p>You don't have any Time-Off</p>
+        <% end %>
+        <% ids = preference.unavailable_shift_ids %>
+        <% ids.each do |id| %>
+          From: <%= Shift.find(id).start_time.hour%>:00 -
+          To: <%= Shift.find(id).end_time.hour%>:00
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
