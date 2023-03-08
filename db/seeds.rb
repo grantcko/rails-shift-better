@@ -59,8 +59,6 @@ user = User.create!(
     file = URI.open(photo_url)
     user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-
-
     photo_urls = [
       "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241862/Shift%20better%20user%20profile%20pics/avatar-11854f7f8348cacfb710a94e90e5b681_scujlj.png",
       "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241861/Shift%20better%20user%20profile%20pics/avatar-1120f0f14a04c0e1ce2f0218dcae17a3_jex088.png",
@@ -109,25 +107,6 @@ user = User.create!(
       file = URI.open(photo_url)
       user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
     end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 puts "created #{User.count} users"
 
 #### DAY

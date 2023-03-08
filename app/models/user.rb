@@ -60,7 +60,7 @@ class User < ApplicationRecord
         sequence << (f == e + 1)
         if sequence.exclude?(false) && sequence.count == 5 # if the user is working 6 consecutive days
           if shift.day.id == seventh_day_id && unavailable_day_ids.exclude?(shift.day.id) # user not valid if the current shift is the 7th consecutive shift and it hasn't already been removed
-            work_day_numbers.delete(seventh_day_id - 1)
+            work_day_numbers.delete(ids[a])
             unavailable_day_ids << seventh_day_id
             update_error_messages(:seventh_day, self, shift)
             return false
