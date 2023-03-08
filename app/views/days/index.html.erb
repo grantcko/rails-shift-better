@@ -2,13 +2,8 @@
   <% if @current_user.manager == true %>
     <%# MANAGER EMPLOYEE %>
     <div class="position relative">
-      <div class="text-center d-flex justify-content-center" id="manager-calendar" data-controller="slideout">
-        <div id="sidebar" data-slideout-target="sidebar">
-          <div class="toggle-btn" id="toggle">
-            <i class="fa-solid fa-arrows-left-right-to-line" data-action="click->slideout#show"></i>
-          </div>
-          <%= render "days/searchbar", users: @users %>
-        </div>
+      <div class="text-center d-flex justify-content-center" id="manager-calendar">
+        <%= render "days/searchbar", users: @users %>
         <div class="calendar p-3">
           <h1><%= @this_month %></h1>
           <%= render 'days/calendar', shifts: @shifts, days: @days %>
@@ -30,3 +25,8 @@
     </div>
   <% end %>
 </div>
+<%# <div id="sidebar" data-slideout-target="sidebar">
+  <div class="toggle-btn" id="toggle">
+    <i class="fa-solid fa-arrows-left-right-to-line" data-action="click->slideout#show"></i>
+  </div>
+</div> %>
