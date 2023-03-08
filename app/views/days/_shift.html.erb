@@ -14,7 +14,7 @@
           <div data-controller="sortable" data-method="destroy" data-shift-id="<%= shift.id %>">
             <% shift.assignments.each do |assignment| %>
               <div class="notification draggable-item" data-id="<%= assignment.id %>">
-                <img src='https://kitt.lewagon.com/placeholder/users/arthur-littm' class="avatar-large" />
+                <%= cl_image_tag assignment.user.photo.key, class: "avatar-large" %>
                 <div class="notification-content text-center">
                   <%= assignment.user.name %>
                   <% @day_shift_errors.each do |error| %>

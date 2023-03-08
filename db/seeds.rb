@@ -24,7 +24,7 @@ puts "\n\nCREATING INSTANCES...\n\n"
 #### USER
 taka = User.create!(
   manager: true,
-  name: "taka",
+  name: "Taka Nakagami",
   email: "taka@gmail.com",
   password: '123123'
 )
@@ -33,16 +33,16 @@ p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073467/Shi
   taka.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
 user = User.create!(
-  name: "grant",
+  name: "Grant Hall",
   email: "grant@gmail.com",
   password: '123123'
 )
-p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073334/Shift%20better%20user%20profile%20pics/121933082_cji135.jpg"
+p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678248003/Shift%20better%20user%20profile%20pics/P_20230308_124932_nms5br.jpg"
   file = URI.open(photo_url)
   user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
 user = User.create!(
-  name: "anik",
+  name: "Anik Dutta",
   email: "anik@gmail.com",
   password: '123123'
 )
@@ -51,7 +51,7 @@ p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073512/Shi
   user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
 user = User.create!(
-    name: "tan",
+    name: "Tan Rungthip",
     email: "tan@gmail.com",
     password: '123123'
   )
@@ -59,17 +59,54 @@ user = User.create!(
     file = URI.open(photo_url)
     user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-11.times do
-  name = Faker::Name.unique.name
-  user = User.create!(
-    name:,
-    email: "#{name.split.first}@gmail.com",
-    password: '123123'
-  )
-  p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073499/Shift%20better%20user%20profile%20pics/121886405_wm7rea.jpg"
-  file = URI.open(photo_url)
-  user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
-end
+    photo_urls = [
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241862/Shift%20better%20user%20profile%20pics/avatar-11854f7f8348cacfb710a94e90e5b681_scujlj.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241861/Shift%20better%20user%20profile%20pics/avatar-1120f0f14a04c0e1ce2f0218dcae17a3_jex088.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241861/Shift%20better%20user%20profile%20pics/avatar-11396edc29ac5c1ff0c657811d2ee08d_whespz.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241861/Shift%20better%20user%20profile%20pics/avatar-113f2c66c8dc1ca19f740392aa1700e1_bztbqq.png"
+    ]
+
+    4.times do
+      first_name = Faker::Name.unique.male_first_name
+      last_name = Faker::Name.last_name
+      user = User.create!(
+        name: "#{first_name} #{last_name}",
+        email: "#{first_name.downcase}.#{last_name.downcase}@gmail.com",
+        password: '123123'
+      )
+
+      photo_url = photo_urls.sample
+      photo_urls.delete(photo_url) # remove the photo URL from the array
+      file = URI.open(photo_url)
+      user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+    end
+
+
+
+    photo_urls = [
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678242000/Shift%20better%20user%20profile%20pics/avatar-115967dc580561fc62c8929638ec6b36_flhhdt.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241862/Shift%20better%20user%20profile%20pics/avatar-11855acb83324b8b3338c78041067387_y1akkw.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241862/Shift%20better%20user%20profile%20pics/avatar-11b2786d64fbfdd11f91dff12ff78d69_wiszsa.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241862/Shift%20better%20user%20profile%20pics/avatar-11c1e0e5495f1f0965b9444048764627_pe4thh.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241862/Shift%20better%20user%20profile%20pics/avatar-11063300d86c155ef3677e1339e2d31c_oq0dky.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241862/Shift%20better%20user%20profile%20pics/avatar-11ba1cbb607eb52e9dda6fd258ff0e82_uc4vop.png",
+      "https://res.cloudinary.com/dn2mnawil/image/upload/v1678241845/Shift%20better%20user%20profile%20pics/avatar-11983a50d678ef2824c08dcbdb3c921c_wsdvtk.png"
+    ]
+
+    7.times do
+      first_name = Faker::Name.unique.female_first_name
+      last_name = Faker::Name.last_name
+      user = User.create!(
+        name: "#{first_name} #{last_name}",
+        email: "#{first_name.downcase}.#{last_name.downcase}@gmail.com",
+        password: '123123'
+      )
+
+      photo_url = photo_urls.sample
+      photo_urls.delete(photo_url) # remove the photo URL from the array
+      file = URI.open(photo_url)
+      user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+    end
 puts "created #{User.count} users"
 
 #### DAY
