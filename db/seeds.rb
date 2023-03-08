@@ -59,15 +59,18 @@ user = User.create!(
     file = URI.open(photo_url)
     user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-# 13.times do
-#   name = Faker::Name.unique.name
-#   User.create!(
-#     name:,
-#     email: "#{name.split.first}@gmail.com",
-#     password: '123123'
-#   )
-# end
-# puts "created #{User.count} users"
+11.times do
+  name = Faker::Name.unique.name
+  user = User.create!(
+    name:,
+    email: "#{name.split.first}@gmail.com",
+    password: '123123'
+  )
+  p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073499/Shift%20better%20user%20profile%20pics/121886405_wm7rea.jpg"
+  file = URI.open(photo_url)
+  user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+end
+puts "created #{User.count} users"
 
 #### DAY
 #### SHIFT

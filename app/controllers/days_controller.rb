@@ -44,6 +44,7 @@ class DaysController < ApplicationController
         next unless user.can_be_assigned?(shift)
 
         @assignment = Assignment.new(shift:, user:)
+        raise if @assignment.valid? == false
         authorize @assignment
         @assignment.save
       end
