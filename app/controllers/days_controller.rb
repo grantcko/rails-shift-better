@@ -9,6 +9,7 @@ class DaysController < ApplicationController
     else
       @users = User.all
     end
+    @weeks = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"]
   end
 
   def show
