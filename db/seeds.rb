@@ -24,6 +24,17 @@ puts "\n\nCREATING INSTANCES...\n\n"
 #### USER
 taka = User.create!(
   manager: true,
+  name: "Waka Nakagami",
+  email: "waka@gmail.com",
+  password: '123123'
+)
+p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073467/Shift%20better%20user%20profile%20pics/117798839_eiqm5g.jpg"
+  file = URI.open(photo_url)
+  taka.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+
+
+taka = User.create!(
+  manager: true,
   name: "Taka Nakagami",
   email: "taka@gmail.com",
   password: '123123'
@@ -182,6 +193,14 @@ User.all.each do |user|
     preference.note = notes.sample
     preference.save
   end
+end
+
+3.times do
+  Preference.create!(
+    category: :paid_dayoff,
+    user_id: User.all.sample.id,
+    day_id: Day.last.id
+  )
 end
 
 puts "created #{Preference.count} preferences"
