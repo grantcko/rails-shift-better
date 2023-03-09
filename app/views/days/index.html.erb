@@ -6,10 +6,10 @@
         <%= render "days/searchbar", users: @users %>
         <div class="text-center calendar p-3">
           <div class="calendar p-3">
-            <div class="generate-top">
+            <div class="generate-top rounded px-2">
               <h2 class="calendar-month"><%= @this_month %></h2>
               <%= render 'days/shift_errors', days: @days %>
-              <form action="/days" method="post"><i class="fa-solid fa-arrow-right mx-2"></i><button class="generate-btn" data-controller="loading-spin" data-action="click->loading-spin#insertspin">Click to Generate Schedule</button></form>
+              <form action="/days" method="post"><i class="fa-solid fa-arrow-right mx-2"></i><button class="btn btn-primary" data-controller="loading-spin" data-action="click->loading-spin#insertspin">Click to Generate Schedule</button></form>
             </div>
             <%= render 'days/calendar', shifts: @shifts, days: @days %>
             <%= render "days/loading_bar", users: @users %>
@@ -18,7 +18,7 @@
         </div>
       <% else %>
         <%# EMPLOYEE CALENDAR %>
-        <div class="d-flex h-100 w-100 position-relative" style="margin-left:4.5rem;">
+        <div class="d-flex h-100 w-100 position-relative justify-content-center">
           <div class="text-center d-flex justify-content-center" id="manager-calendar">
             <%= render 'days/preference_bar', users: @users %>
             <div class="calendar p-3">

@@ -20,16 +20,20 @@
             <% end %>
           </div>
           <% empty_count = 0 %>
-          <% shifts.each do |shift| %>
-            <% if shift.day == day %>
-              <% if shift.assignments.count == 3 %>
-                <p class="shifts shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
-              <% elsif shift.assignments.count < 3 && shift.assignments.count > 0 %>
-                <p class="shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
-              <% elsif shift.assignments.count == 0 %>
-                <% empty_count += 1 %>
-              <% else %>
-                <p class="shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
+          <% if day.assignments.count == 9 && params[:user_id].blank? %>
+            <i class="fa-solid fa-check"></i> Assigned
+          <% else %>
+            <% shifts.each do |shift| %>
+              <% if shift.day == day %>
+                <% if shift.assignments.count == 3 %>
+                  <p class="shifts shift-good"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
+                <% elsif shift.assignments.count < 3 && shift.assignments.count > 0 %>
+                  <p class="shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
+                <% elsif shift.assignments.count == 0 %>
+                  <% empty_count += 1 %>
+                <% else %>
+                  <p class="shifts shift-warning"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
