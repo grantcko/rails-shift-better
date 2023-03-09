@@ -48,25 +48,6 @@ class User < ApplicationRecord
     assignments = Assignment.where(user: self)
     assignments.each do |assignment|
       work_days << assignment.shift.day unless work_days.include?(assignment.shift.day) # collect work days
-      # work_day_numbers << assignment.shift.day.id
-      # work_day_numbers.each_cons(6).each do |a, b, c, d, e, f|
-      #   ids = [a, b, c, d, e, f]
-      #   seventh_day_id = ids[-1] + 1
-      #   sequence = []
-      #   sequence << (b == a + 1)
-      #   sequence << (c == b + 1)
-      #   sequence << (d == c + 1)
-      #   sequence << (e == d + 1)
-      #   sequence << (f == e + 1)
-      #   if sequence.exclude?(false) && sequence.count == 5 # if the user is working 6 consecutive days
-      #     if shift.day.id == seventh_day_id && unavailable_day_ids.exclude?(shift.day.id) # user not valid if the current shift is the 7th consecutive shift and it hasn't already been removed
-      #       work_day_numbers.delete(ids[a])
-      #       unavailable_day_ids << seventh_day_id
-      #       update_error_messages(:seventh_day, self, shift)
-      #       return false
-      #     end
-      #   end
-      # end
     end
 
     #### needs 9 days min off in a month

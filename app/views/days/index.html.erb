@@ -7,18 +7,19 @@
         <div class="text-center calendar p-3">
           <div class="calendar p-3">
             <div class="generate-top">
-              <h2 class="calendar-month"><%= @this_month %></h2>
               <%= form_with url: days_path, method: :get, class: "d-flex" do %>
-                <%# <%= text_field_tag :month,
-                  Date.today.month,
-                  class: "form-control",
-                  placeholder: "Find a movie"
-                %>
                 <%= button_tag  name: "month", value: params[:month] ? params[:month].to_i - 1 : (Date.today.month - 1).to_s  do %>
                   prev
                 <% end %>
-                <%= button_tag  name: "month", value: params[:month] ? params[:month].to_i + 1 : Date.today.month + 1  do %>
-                  next
+                <h2 class="calendar-month"><%= @this_month %></h2>
+                <% if params[:month].to_i > 11 %>
+                  <%= button_tag  name: "month", value: params[:month] ? params[:month].to_i + 1 : Date.today.month + 1  do %>
+                    next
+                  <% end %>
+                <% else %>
+                  <%= button_tag  name: "month", value: params[:month] ? params[:month].to_i + 1 : Date.today.month + 1  do %>
+                    next
+                  <% end %>
                 <% end %>
               <% end %>
               <%= render 'days/shift_errors', days: @days %>
