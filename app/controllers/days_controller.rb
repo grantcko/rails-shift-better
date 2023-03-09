@@ -60,8 +60,9 @@ class DaysController < ApplicationController
 
   def create_month
     Assignment.destroy_all
-    Shift.all.each do |shift|
-      random_users.each do |user|
+    days = Day.where("extract(month from date) = ?", params[:month] || Date.today.month)
+    Shift.where(day_id: days).each do |shift|
+      User.all.shuffle.each do |user|
         next unless user.can_be_assigned?(shift)
 
         @assignment = Assignment.new(shift:, user:)
@@ -86,14 +87,6 @@ class DaysController < ApplicationController
     else
       return months[Date.today.month - 1]
     end
-  end
-
-  def random_users
-    ordered_users = []
-    User.all.each { |user| ordered_users << user }
-    random_users = []
-    User.all.each { (num = rand(0...User.all.count)) && (random_users << ordered_users[num]) }
-    random_users
   end
 end
 
