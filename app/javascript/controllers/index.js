@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import DisappearController from "./disappear_controller"
+application.register("disappear", DisappearController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
