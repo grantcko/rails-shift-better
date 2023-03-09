@@ -40,10 +40,11 @@ class DaysController < ApplicationController
     @day_shift_errors = {}
     authorize @day
     authorize @shifts
-    User.all.each { |user| user.shift_errors = [] }
+    # User.all.each { |user| user.shift_errors = [] }
+    days = Day.where("extract(month from date) = ?", @day.date.month)
     User.all.each do |user| # each user
       @shifts.each do |shift| # each shift on that day
-        user.can_be_assigned?(shift) # loading up error messages per shift
+        user.can_be_assigned?(shift, days) # loading up error messages per shift
         # loading up the error given for each shift
         @day_shift_errors[[user.id, user.shift_errors[0]]] = user.shift_errors[1]
       end
@@ -62,10 +63,12 @@ class DaysController < ApplicationController
 
   def create_month
     Assignment.destroy_all
-    days = Day.where("extract(month from date) = ?", params[:month] || Date.today.month)
-    Shift.where(day_id: days).each do |shift|
+    month = params[:month].present? ? params[:month] : Date.today.month
+    days = Day.where("extract(month from date) = ?", month)
+    shifts = Shift.where(day_id: days)
+    shifts.each do |shift|
       User.all.shuffle.each do |user|
-        next unless user.can_be_assigned?(shift)
+        next unless user.can_be_assigned?(shift, days)
 
         @assignment = Assignment.new(shift:, user:)
         authorize @assignment

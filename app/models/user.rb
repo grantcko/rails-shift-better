@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :preferences
   has_many :assignments
+  has_many :shifts, through: :assignments
+  has_many :days, through: :shifts
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -16,7 +18,7 @@ class User < ApplicationRecord
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
 
-  def can_be_assigned?(shift)
+  def can_be_assigned?(shift, total_days)
     self.shift_errors = []
     #### if has a preference day it needs to be respected
     preferences.each do |preference|
@@ -38,6 +40,9 @@ class User < ApplicationRecord
     end
 
     #### if someone is scheduled one night they can't be scheuduled next morning
+    # if shift.start_time.hour == 6 && assignments.find_by(end_time: )
+    #   update_error_messages(:late_early, self, shift)
+      # return false
     if Assignment.where(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).count.positive? # if there are any shifts scheduled yest for this user
       yest_end = Assignment.find_by(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).shift.end_time # collect yesterday's shifts end time
       today_start = shift.start_time # collect today's shift's start time
@@ -48,19 +53,22 @@ class User < ApplicationRecord
     end
 
     #### can't work more than 6 days in a row
-    work_days = []
-    work_day_numbers = []
-    assignments = Assignment.where(user: self)
-    assignments.each do |assignment|
-      work_days << assignment.shift.day unless work_days.include?(assignment.shift.day) # collect work days
-    end
+    # work_days = []
+    # work_day_numbers = []
+    # assignments = Assignment.where(user: self)
+    # assignments.each do |assignment|
+    #   work_days << assignment.shift.day unless work_days.include?(assignment.shift.day) # collect work days
+    # end
+
+    # work_days = assignments.where(shift_id: shifts).where.not(shift: shift)
+    work_days = days.where("extract(month from date) = ?", total_days.first.date.month)
 
     #### needs 9 days min off in a month
     # raise
-    if self.assignments.exists? && work_days.count == Day.all.count - 9 # && self.assignments.last.shift.id < shift.id
+    if self.assignments.exists? && work_days.count == Day.count - 9 # && self.assignments.last.shift.id < shift.id
       update_error_messages(:nine_off, self, shift)
       return false
-    elsif self.assignments.exists? && work_days.count > Day.all.count - 9
+    elsif self.assignments.exists? && work_days.count > Day.count - 9
       update_error_messages(:less_nine_off, self, shift)
       return false
     end
