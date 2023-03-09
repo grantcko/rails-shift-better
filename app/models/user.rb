@@ -86,7 +86,7 @@ class User < ApplicationRecord
 
     #### can't be scheduled on a shift that already has 3 or more people
     if shift.assignments.count >= 3
-      update_error_messages(:filled, self, shift)
+      update_error_messages(:available, self, shift)
       return false
     end
 
@@ -98,8 +98,7 @@ class User < ApplicationRecord
   def update_error_messages(key, user, shift)
     all_error_messages = {
       day_preference: "day off requested",
-      shift_preference: "shift_preference",
-      filled: "filled. otherwise, available",
+      shift_preference: "time off requested",
       seventh_day: "seventh_day",
       same_day: "scheduled today",
       nine_off: "max work days reached",
