@@ -89,9 +89,10 @@ class DaysController < ApplicationController
         @assignment = Assignment.new(shift:, user:)
         authorize @assignment
         @assignment.save
+        break if shift.assignments.count == 3
       end
     end
-    redirect_to days_path(month: params[:month])
+    redirect_to days_path(month: month)
   end
 
   private

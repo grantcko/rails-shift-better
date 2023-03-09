@@ -21,13 +21,11 @@ class User < ApplicationRecord
   def can_be_assigned?(shift, total_days)
     self.shift_errors = []
     #### if has a preference day it needs to be respected
-    preferences.each do |preference|
-      if preference.day == shift.day && preference.category == "day_off"
+    preferences.where(day: shift.day).each do |preference|
+      if preference.category == "day_off"
         update_error_messages(:day_preference, self, shift)
         return false
-      end
-
-      if preference.day == shift.day && preference.category == "paid_dayoff"
+      elsif preference.category == "paid_dayoff"
         update_error_messages(:paid_day_preference, self, shift)
         return false
       end
@@ -43,32 +41,32 @@ class User < ApplicationRecord
     # if shift.start_time.hour == 6 && assignments.find_by(end_time: )
     #   update_error_messages(:late_early, self, shift)
       # return false
-    if Assignment.where(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).count.positive? # if there are any shifts scheduled yest for this user
-      yest_end = Assignment.find_by(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).shift.end_time # collect yesterday's shifts end time
-      today_start = shift.start_time # collect today's shift's start time
-      if today_start - yest_end == 10 * 60 * 60
-        update_error_messages(:late_early, self, shift)
-        return false # not valid if there is 10 hours between start and end times
-      end
+    if shifts.where(day: Day.find_by(date: shift.day.date - 1)).where('end_time >= ?', shift.start_time - 10.hours).exists?
+    # if assignments.where(shift: Shift.where(day_id: shift.day.id - 1).last).count.positive? # if there are any shifts scheduled yest for this user
+    #   yest_end = Assignment.find_by(shift: Shift.where(day_id: shift.day.id - 1).last, user: self).shift.end_time # collect yesterday's shifts end time
+    #   today_start = shift.start_time # collect today's shift's start time
+    #   if today_start - yest_end == 10 * 60 * 60
+      update_error_messages(:late_early, self, shift)
+      return false # not valid if there is 10 hours between start and end times
     end
+    # end
 
     #### can't work more than 6 days in a row
     # work_days = []
     # work_day_numbers = []
-    # assignments = Assignment.where(user: self)
     # assignments.each do |assignment|
     #   work_days << assignment.shift.day unless work_days.include?(assignment.shift.day) # collect work days
     # end
 
     # work_days = assignments.where(shift_id: shifts).where.not(shift: shift)
-    work_days = days.where("extract(month from date) = ?", total_days.first.date.month)
+    work_days = days.where("extract(month from date) = ?", shift.day.date.month)
 
     #### needs 9 days min off in a month
     # raise
-    if self.assignments.exists? && work_days.count == Day.count - 9 # && self.assignments.last.shift.id < shift.id
+    if work_days.count == total_days.count - 9 # && self.assignments.last.shift.id < shift.id
       update_error_messages(:nine_off, self, shift)
       return false
-    elsif self.assignments.exists? && work_days.count > Day.count - 9
+    elsif work_days.count > total_days.count - 9
       update_error_messages(:less_nine_off, self, shift)
       return false
     end
