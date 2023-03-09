@@ -4,7 +4,7 @@
     params[:query],
     class: "form-control",
     placeholder: "Find a Team Member" %>
-      <%= submit_tag "Search", class: "btn btn-dark" %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
     <% end %> </p>
   <% users_without_day_off = users.select { |user| user.preferences.where(category: "day_off").count < 3 } %>
   <% users_with_day_off = users.select { |user| user.preferences.where(category: "day_off").count >= 3 } %>
