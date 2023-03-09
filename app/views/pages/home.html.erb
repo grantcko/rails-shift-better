@@ -1,7 +1,11 @@
 <div class="banner" style="background-image: url(<%=image_path "background.png" %>);">
   <div class="container banner-image d-flex flex-column">
     <%= image_tag "logo1.png", size: "470x200"%>
-    <%= link_to 'Sign In', new_user_session_path, class: 'mt-4 mx-4 flex-grow-0 text-decoration-none sign btn btn-dark'  %>
+    <% if user_signed_in? %>
+      <%= link_to 'Dashboard', days_path, class: 'mt-4 mx-4 flex-grow-0 text-decoration-none sign btn btn-dark' %>
+    <% else %>
+      <%= link_to 'Sign In', new_user_session_path, class: 'mt-4 mx-4 flex-grow-0 text-decoration-none sign btn btn-dark' %>
+    <% end %>
   </div>
   <div class="supporting">
     <div class="container d-flex justify-content-between ">
