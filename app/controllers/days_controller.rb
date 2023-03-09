@@ -2,7 +2,6 @@ class DaysController < ApplicationController
   def index
     @days = policy_scope(Day)
     # go through each day and collect it in an array if the day's date's is == the specific month
-
     if params[:month]
       @days = @days.filter { |day| day.date.month == params[:month].to_i }
     else
