@@ -46,6 +46,22 @@ class DaysController < ApplicationController
         @day_shift_errors[[user.id, user.shift_errors[0]]] = user.shift_errors[1]
       end
     end
+
+    @sorted_users = User.all.sort_by do |user|
+      if user.shift_errors[1] == "available"
+        [0, user.name.downcase] # Sort available users first, then alphabetically by name
+      elsif user.shift_errors[1] == "time off requested"
+        [1, user.name.downcase] # Sort users with day off requested next, then alphabetically by name
+      elsif user.shift_errors[1] == "day off requested"
+        [2, user.name.downcase]
+      elsif user.shift_errors[1] == "max work days reached"
+        [3, user.name.downcase]
+      else
+        [4, user.name.downcase] # Sort remaining users alphabetically by name
+      end
+    end
+
+    render :show
   end
 
   def create

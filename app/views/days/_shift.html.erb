@@ -10,22 +10,20 @@
           </div>
         </div>
         <div class="m-2">
-          Employee Assigned
-          <div data-controller="sortable" data-method="destroy" data-shift-id="<%= shift.id %>">
-            <% shift.assignments.each do |assignment| %>
-              <div class="notification draggable-item" data-id="<%= assignment.id %>">
-                <%= cl_image_tag assignment.user.photo.key, class: "avatar-large" %>
-                <div class="notification-content text-center">
-                  <%= assignment.user.name %>
-                  <% @day_shift_errors.each do |error| %>
-                    <p><em><%= error[1] if error[0][0] == assignment.user.id && error[0][1].to_i == shift.id %></em></p>
-                  <% end %>
-                </div>
+          <p>Employee Assigned</p>
+        </>
+        <div data-controller="sortable" data-method="destroy" data-shift-id="<%= shift.id %>">
+          <% shift.assignments.each do |assignment| %>
+            <div class="notification draggable-item" data-id="<%= assignment.id %>">
+              <%= cl_image_tag assignment.user.photo.key, class: "avatar-large" %>
+              <div class="notification-content text-center">
+                <%= assignment.user.name %>
               </div>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+</div>
 <% end %>
