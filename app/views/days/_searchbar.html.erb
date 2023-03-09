@@ -6,11 +6,12 @@
     placeholder: "Find a Team Member" %>
       <%= submit_tag "Search", class: "btn btn-dark" %>
     <% end %> </p>
-  <% users.each do |user| %>
+  <% users_without_day_off = users.select { |user| user.preferences.where(category: "day_off").count < 3 } %>
+  <% users_with_day_off = users.select { |user| user.preferences.where(category: "day_off").count >= 3 } %>
+  <% users_without_day_off.each do |user| %>
     <%= form_with url: days_path, method: :get do %>
-      <%= hidden_field_tag :user_id, user.id,
-        class: "form-control" %>
-      <%= button_tag do%>
+      <%= hidden_field_tag :user_id, user.id, class: "form-control" %>
+      <%= button_tag do %>
         <div class="notification-list justify-content-between">
           <%= cl_image_tag user.photo.key, class: "rounded-circle", width: 36, height: 36 %>
           <div id="name-search">
@@ -18,9 +19,29 @@
           </div>
           <div>
             <% if user.preferences.where(category: "day_off").count >= 3 %>
-              <i class="fa-sharp fa-solid fa-circle-check"></i>
+              <i class="fa-sharp fa-solid fa-circle-check green"></i>
             <% else %>
-              <i class="fa-sharp fa-solid fa-circle-xmark"></i>
+              <i class="fa-sharp fa-solid fa-hourglass-start orange"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% users_with_day_off.each do |user| %>
+    <%= form_with url: days_path, method: :get do %>
+      <%= hidden_field_tag :user_id, user.id, class: "form-control" %>
+      <%= button_tag do %>
+        <div class="notification-list justify-content-between">
+          <%= cl_image_tag user.photo.key, class: "rounded-circle", width: 36, height: 36 %>
+          <div id="name-search">
+            <%= user.name %>
+          </div>
+          <div>
+            <% if user.preferences.where(category: "day_off").count >= 3 %>
+              <i class="fa-sharp fa-solid fa-circle-check green"></i>
+            <% else %>
+              <i class="fa-sharp fa-solid fa-hourglass-start orange"></i>
             <% end %>
           </div>
         </div>

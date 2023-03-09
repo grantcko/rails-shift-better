@@ -4,7 +4,6 @@
   height: 2em;
 
 }
-
 .bi path,
 .bi polygon,
 .bi rect {
@@ -18,4 +17,18 @@
 
 .nav-link:hover {
   background-color: $blue;
+}
+
+.nav {
+  margin: 0;
+  padding: 20px 0;
+}
+
+.nav li {
+  display:inline;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform:uppercase;
 }
