@@ -5,8 +5,10 @@ class DaysController < ApplicationController
 
     if params[:month]
       @days = @days.filter { |day| day.date.month == params[:month].to_i }
+      @this_month = month_of_days(params[:month].to_i)
     else
-      @days = @days.filter { |day| day.date.month == Date.today.month - 1 }
+      @days = @days.filter { |day| day.date.month == Date.today.month }
+      @this_month = month_of_days(3)
     end
 
     if @days.count.positive?
@@ -22,7 +24,7 @@ class DaysController < ApplicationController
     if params[:user_id]
       @shifts = @shifts.joins(:assignments).where(assignments: { user_id: params[:user_id] })
     end
-    @this_month = month_of_days(params[:month].to_i)
+
     @current_user = current_user
     if params[:query].present?
       @users = User.search_by_name(params[:query])
@@ -60,7 +62,13 @@ class DaysController < ApplicationController
 
   def create_month
     Assignment.destroy_all
-    Shift.all.each do |shift|
+    if params[:month]
+      @days = Day.all.filter { |day| day.date.month == params[:month].to_i }
+    else
+      @days = Day.all.filter { |day| day.date.month == Date.today.month }
+    end
+    shifts = Shift.all.filter { |shift| @days.include?(shift.day) }
+    shifts.each do |shift|
       random_users.each do |user|
         next unless user.can_be_assigned?(shift)
 
@@ -69,7 +77,7 @@ class DaysController < ApplicationController
         @assignment.save
       end
     end
-    redirect_to days_path
+    redirect_to days_path(month: params[:month])
   end
 
   private
