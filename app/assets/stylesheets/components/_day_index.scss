@@ -32,18 +32,19 @@
 
 .generate-top {
   display: flex;
-  justify-content: space-between;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  background-color: #e0e0e0;
-  text-align: center;
-  // border-radius: 5px 5px 0px 0px;
-  border-style: solid;
-  border-color: grey;
-  border-width: 1px;
-  align-items: center;
+    justify-content: space-between;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #eeaeca;
+    text-align: center;
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+    color: white;
+    align-items: center;
+
 }
 
 .calendar-month {
