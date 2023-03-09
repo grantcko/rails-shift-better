@@ -227,12 +227,15 @@ User.all.each do |user|
   end
 end
 
-8.times do
+users = User.all.to_a
+User.count.times do
   days = Day.all.filter { |dayy| dayy.date.month == 4 }
+  shift = days.last.shifts.last
   Preference.create!(
     category: :time_off,
-    user_id: User.all.sample.id,
-    day_id: days[-1].id
+    unavailable_shift_ids: [shift.id],
+    user: users.delete_at(0),
+    day: shift.day
   )
 end
 
