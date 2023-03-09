@@ -122,11 +122,11 @@ puts "created #{User.count} users"
 
 #### DAY
 #### SHIFT
-march_one_date = Date.new + 2460005
-march_one_time = DateTime.new + 2460005
-31.times do
+march_one_date = Date.new(2023, 1, 1)
+march_one_time = DateTime.new(2023, 1, 1)
+365.times do
   Day.create!(
-    date: march_one_date,
+    date: march_one_date
   )
 
   times = {

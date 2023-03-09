@@ -1,11 +1,28 @@
 class DaysController < ApplicationController
   def index
     @days = policy_scope(Day)
-    @shifts = Shift.all
-    if params[:user_id]
-      @shifts = @shifts.joins(:assignments).where(assignments: {user_id: params[:user_id]})
+    # go through each day and collect it in an array if the day's date's is == the specific month
+
+    if params[:month]
+      @days = @days.filter { |day| day.date.month == params[:month].to_i }
+    else
+      @days = @days.filter { |day| day.date.month == Date.today.month - 1 }
     end
-    @this_month = month_of_days(@days)
+
+    if @days.count.positive?
+      @days_before = days_between_count(@days, :before)
+      @days_after = days_between_count(@days, :after)
+    else
+      @days_before = 0
+      @days_after = 0
+    end
+
+    @shifts = Shift.all
+
+    if params[:user_id]
+      @shifts = @shifts.joins(:assignments).where(assignments: { user_id: params[:user_id] })
+    end
+    @this_month = month_of_days(params[:month].to_i)
     @current_user = current_user
     if params[:query].present?
       @users = User.search_by_name(params[:query])
@@ -48,7 +65,6 @@ class DaysController < ApplicationController
         next unless user.can_be_assigned?(shift)
 
         @assignment = Assignment.new(shift:, user:)
-        raise if @assignment.valid? == false
         authorize @assignment
         @assignment.save
       end
@@ -62,10 +78,14 @@ class DaysController < ApplicationController
     params.require(:day).permit(:date, :approved)
   end
 
-  def month_of_days(days)
+  def month_of_days(day)
     months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"]
-    months[days.first.date.month - 1]
+    if day > 0
+      return months[day - 1]
+    else
+      return months[Date.today.month - 1]
+    end
   end
 
   def random_users
@@ -74,5 +94,27 @@ class DaysController < ApplicationController
     random_users = []
     User.all.each { (num = rand(0...User.all.count)) && (random_users << ordered_users[num]) }
     random_users
+  end
+end
+
+def days_between_count(days, key)
+  first_day = Date::DAYNAMES[days.first.date.wday].to_sym
+  last_day = Date::DAYNAMES[days.last.date.wday].to_sym
+  days_num = {
+    Sunday: 0,
+    Monday: 1,
+    Tuesday: 2,
+    Wednesday: 3,
+    Thursday: 4,
+    Friday: 5,
+    Saturday: 6
+  }
+
+  # raise
+  if key == :before
+    # raise
+    return days_num[first_day]
+  elsif key == :after
+    return 6 - days_num[last_day]
   end
 end
