@@ -20,8 +20,13 @@ class User < ApplicationRecord
     self.shift_errors = []
     #### if has a preference day it needs to be respected
     preferences.each do |preference|
-      if preference.day == shift.day && preference.category != "time_off"
+      if preference.day == shift.day && preference.category == "day_off"
         update_error_messages(:day_preference, self, shift)
+        return false
+      end
+
+      if preference.day == shift.day && preference.category == "paid_dayoff"
+        update_error_messages(:paid_day_preference, self, shift)
         return false
       end
 
@@ -79,6 +84,7 @@ class User < ApplicationRecord
   def update_error_messages(key, user, shift)
     all_error_messages = {
       day_preference: "day off requested",
+      paid_day_preference: "paid day off requested",
       shift_preference: "shift_preference",
       filled: "filled. otherwise, available",
       seventh_day: "seventh_day",

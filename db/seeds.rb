@@ -24,8 +24,8 @@ puts "\n\nCREATING INSTANCES...\n\n"
 #### USER
 taka = User.create!(
   manager: true,
-  name: "Waka Nakagami",
-  email: "waka@gmail.com",
+  name: "Taka Nakagami",
+  email: "taka@gmail.com",
   password: '123123'
 )
 p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073467/Shift%20better%20user%20profile%20pics/117798839_eiqm5g.jpg"
@@ -35,11 +35,11 @@ p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073467/Shi
 
 taka = User.create!(
   manager: true,
-  name: "Taka Nakagami",
-  email: "taka@gmail.com",
+  name: "Zuma Dotwav",
+  email: "zuma@gmail.com",
   password: '123123'
 )
-p photo_url = "https://res.cloudinary.com/dn2mnawil/image/upload/v1678073467/Shift%20better%20user%20profile%20pics/117798839_eiqm5g.jpg"
+p photo_url = "https://res.cloudinary.com/dw0jec2ls/image/upload/v1678341314/Screen_Shot_2023-03-09_at_14.55.01_fmt0uo.png"
   file = URI.open(photo_url)
   taka.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
@@ -156,29 +156,61 @@ notes = [
   "I am going to kill a turtle",
   "I need to take the train at this time",
 ]
-def shift_ids(day)
-  shifts = Shift.where(day:)
-  shift_ids = []
-  shifts.each { |shift| shift_ids << shift.id }
-end
+
+# def shift_ids(day)
+#   shifts = Shift.where(day:)
+#   shift_ids = []
+#   shifts.each { |shift| shift_ids << shift.id }
+# end
 
 User.all.each do |user|
+  #### PREFERENCES FOR MARCH
+  days = Day.all.filter { |day| day.date.month == 3 }
+
   3.times do
-    day = Day.all.sample
     Preference.create!(
-      category: :day_off,
+      category: :paid_dayoff,
       user_id: user.id,
-      day_id: day.id
+      day_id: days.sample.id
     )
   end
 
-  day = Day.all.sample
-
-  rand(1..3).times do
+  rand(1..2).times do
     Preference.new(
-      category: %i[day_off paid_dayoff].sample,
+      category: :paid_dayoff,
       user_id: user.id,
-      day_id: day.id
+      day_id: days.sample.id
+    )
+  end
+
+  rand(0..1).times do
+    preference = Preference.new(
+      category: :time_off,
+      user_id: user.id,
+      day_id: days.sample.id,
+      unavailable_shift_ids: Shift.where(day: days.sample).sample.id
+    )
+    preference.unavailable_shift_ids = [] << Shift.where(day: preference.day).sample.id
+    preference.note = notes.sample
+    preference.save
+  end
+
+  #### PREFERENCES FOR APRIL
+  days = Day.all.filter { |day| day.date.month == 4 }
+
+  3.times do
+    Preference.create!(
+      category: :day_off,
+      user_id: user.id,
+      day_id: days.sample.id
+    )
+  end
+
+  rand(1..2).times do
+    Preference.new(
+      category: :paid_dayoff,
+      user_id: user.id,
+      day_id: days.sample.id
     )
   end
 
@@ -186,8 +218,8 @@ User.all.each do |user|
     preference = Preference.new(
       category: :time_off,
       user_id: user.id,
-      day_id: day.id,
-      unavailable_shift_ids: Shift.where(day:).sample.id
+      day_id: days.sample.id,
+      unavailable_shift_ids: Shift.where(day: days.sample).sample.id
     )
     preference.unavailable_shift_ids = [] << Shift.where(day: preference.day).sample.id
     preference.note = notes.sample
@@ -195,11 +227,12 @@ User.all.each do |user|
   end
 end
 
-3.times do
+8.times do
+  days = Day.all.filter { |dayy| dayy.date.month == 4 }
   Preference.create!(
-    category: :paid_dayoff,
+    category: :time_off,
     user_id: User.all.sample.id,
-    day_id: Day.last.id
+    day_id: days[-1].id
   )
 end
 
