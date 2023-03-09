@@ -1,11 +1,20 @@
 class DaysController < ApplicationController
   def index
     @days = policy_scope(Day)
+    # go through each day and collect it in an array if the day's date's is == the specific month
+
+    if params[:month]
+      @days = @days.filter { |day| day.date.month == params[:month].to_i }
+    end
+    # @march = @days.filter { |day| day.date.month == 3 }
+    # @april = @days.filter { |day| day.date.month == 4 }
+    # raise
     @shifts = Shift.all
+
     if params[:user_id]
       @shifts = @shifts.joins(:assignments).where(assignments: {user_id: params[:user_id]})
     end
-    @this_month = month_of_days(@days)
+    # @this_month = month_of_days(@days)
     @current_user = current_user
     if params[:query].present?
       @users = User.search_by_name(params[:query])

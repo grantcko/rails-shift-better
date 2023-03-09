@@ -8,6 +8,19 @@
           <div class="calendar p-3">
             <div class="generate-top">
               <h2 class="calendar-month"><%= @this_month %></h2>
+              <%= form_with url: days_path, method: :get, class: "d-flex" do %>
+                <%# <%= text_field_tag :month,
+                  Date.today.month,
+                  class: "form-control",
+                  placeholder: "Find a movie"
+                %>
+                <%= button_tag  name: "month", value: params[:month] ? params[:month].to_i - 1 : (Date.today.month - 1).to_s  do %>
+                  prev
+                <% end %>
+                <%= button_tag  name: "month", value: params[:month] ? params[:month].to_i + 1 : Date.today.month + 1  do %>
+                  next
+                <% end %>
+              <% end %>
               <%= render 'days/shift_errors', days: @days %>
               <form action="/days" method="post"><i class="fa-solid fa-arrow-right mx-2"></i><button class="generate-btn" data-controller="loading-spin" data-action="click->loading-spin#insertspin">Click to Generate Schedule</button></form>
             </div>
