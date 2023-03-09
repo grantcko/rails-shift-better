@@ -6,7 +6,7 @@
   <% end %>
 </div>
 <div class="cards">
-  <% 3.times do %>
+  <% @days_before.times do %>
     <div class="card-category placeholder-grey "></div>
   <% end %>
   <% days.each do |day| %>
@@ -46,5 +46,7 @@
       </div>
     <% end %>
   <% end %>
-  <div class="card-category placeholder-grey"></div>
+  <% @days_after.times do %>
+    <div class="card-category placeholder-grey "></div>
+  <% end %>
 </div>
