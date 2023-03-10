@@ -169,7 +169,7 @@ User.all.each do |user|
 
   3.times do
     Preference.create!(
-      category: :paid_dayoff,
+      category: "Day off",
       user_id: user.id,
       day_id: days.sample.id
     )
@@ -177,7 +177,7 @@ User.all.each do |user|
 
   rand(1..2).times do
     Preference.new(
-      category: :paid_dayoff,
+      category: "Paid dayoff",
       user_id: user.id,
       day_id: days.sample.id
     )
@@ -185,7 +185,7 @@ User.all.each do |user|
 
   rand(0..1).times do
     preference = Preference.new(
-      category: :time_off,
+      category: "Time off",
       user_id: user.id,
       day_id: days.sample.id,
       unavailable_shift_ids: Shift.where(day: days.sample).sample.id
@@ -200,7 +200,7 @@ User.all.each do |user|
 
   3.times do
     Preference.create!(
-      category: :day_off,
+      category: "Day off",
       user_id: user.id,
       day_id: days.sample.id
     )
@@ -208,7 +208,7 @@ User.all.each do |user|
 
   rand(1..2).times do
     Preference.new(
-      category: :paid_dayoff,
+      category: "Paid dayoff",
       user_id: user.id,
       day_id: days.sample.id
     )
@@ -216,7 +216,7 @@ User.all.each do |user|
 
   rand(0..2).times do
     preference = Preference.new(
-      category: :time_off,
+      category: "Time off",
       user_id: user.id,
       day_id: days.sample.id,
       unavailable_shift_ids: Shift.where(day: days.sample).sample.id
@@ -233,7 +233,7 @@ users = User.all.to_a
   # shift = days.last.shifts.first
   shift = Day.find_by(date: Date.new(2023, 04, 29)).shifts.last
   Preference.create!(
-    category: :time_off,
+    category: "Time off",
     unavailable_shift_ids: [shift.id],
     user: users.delete_at(0),
     day: shift.day

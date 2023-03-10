@@ -54,6 +54,7 @@
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
   // grid-gap: 16px;
 }
 
@@ -130,6 +131,11 @@
 
 .employee-calendar-center {
   top: 350px;
+}
+
+.employee-calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
 }
 
 // Smallest device
