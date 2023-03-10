@@ -1,7 +1,7 @@
 <div class="d-flex m-4">
   <div class="cards">
-    <% 3.times do %>
-      <div class="card-category placeholder-grey"></div>
+    <% @days_before.times do %>
+      <div class="card-category placeholder-grey "></div>
     <% end %>
     <% days.each do |day| %>
       <%= link_to new_day_preference_path(day), class: "text-dark text-decoration-none" do %>
@@ -37,6 +37,8 @@
         </div>
       <% end %>
     <% end %>
-    <div class="card-category placeholder-grey"></div>
+    <% @days_after.times do %>
+      <div class="card-category placeholder-grey "></div>
+    <% end %>
   </div>
 </div>
