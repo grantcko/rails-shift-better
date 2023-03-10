@@ -33,7 +33,6 @@ class User < ApplicationRecord
       #### if someone has a shift preference it needs to be respected
       if preference.unavailable_shift_ids.include?(shift.id)
         update_error_messages(:shift_preference, self, shift)
-        raise
         return false
       end
     end
