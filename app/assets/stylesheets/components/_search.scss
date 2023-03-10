@@ -2,9 +2,9 @@
   float: right;
 }
 .list{
-  width: 350px;
+
   margin-left: 16px;
-  margin-right: 60px;
+
 }
 .notificationsearch{
   align-items: center;
@@ -16,7 +16,7 @@
 }
 #name-search{
   font-size: 14px;
-  margin-left: 20px;
+  margin: 0 4px;
 }
 .searchbutton{
   height: 40px;
@@ -29,3 +29,10 @@
 .orange {
   color: rgb(227, 111, 21);
 }
+.parent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
