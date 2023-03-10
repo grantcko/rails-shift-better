@@ -6,7 +6,7 @@
     <% days.each do |day| %>
       <%= link_to new_day_preference_path(day), class: "text-dark text-decoration-none" do %>
         <div class="card-category">
-          <div class=" mt-4">
+          <div class=" mt-2">
             <div class="d-flex justify-content-start" style="width: 100px">
               <p class="date-corner px-1"><%= day.date.day %></p>
               <% Preference.where(day:).each do |preference| %>
@@ -19,7 +19,10 @@
             <% shifts.each do |shift| %>
               <% if shift.day == day %>
                 <% if Assignment.where(shift:, user: @current_user).count > 0 %>
-                  <p class="shifts shift-work"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-user mx-1"></i></p>
+                  <p class="shifts shift-good bg-warning text-nowrap text-white"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %></p>
+                  <div style="height: 1em"></div>
+                  <div style="height: 1em"></div>
+                  <div style="height: 1em"></div>
                 <% elsif shift.assignments.count == 0 %>
                   <% empty_count += 1 %>
                 <% end %>

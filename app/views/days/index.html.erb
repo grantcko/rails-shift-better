@@ -2,11 +2,12 @@
   <% if @current_user.manager == true %>
     <%# MANAGER CALENDAR %>
     <div class="position relative">
-      <div class="d-flex justify-content-center" id="manager-calendar">
+      <div class="d-flex justify-content-start" id="manager-calendar">
         <%= render "days/searchbar", users: @users %>
-        <div class="text-center calendar p-3">
-          <div class="calendar p-3">
-            <div class="generate-top">
+        <div class="text-center calendar p-3  w-100">
+          <div class="calendar p-3 position-relative">
+            <%= render 'days/mgr_generating_schedule_rules' %>
+            <div class="generate-top my-3">
               <%= form_with url: days_path, method: :get, class: "d-flex" do %>
                 <%= button_tag  name: "month", value: params[:month] ? params[:month].to_i - 1 : (Date.today.month - 1).to_s  do %>
                   prev
@@ -31,11 +32,11 @@
         </div>
       <% else %>
         <%# EMPLOYEE CALENDAR %>
-        <div class="d-flex h-100 w-100 position-relative" style="margin-left:4.5rem;">
-          <div class="text-center d-flex justify-content-center" id="manager-calendar">
-            <%= render 'days/preference_bar', users: @users %>
-            <div class="calendar p-3">
-              <h1><%= @this_month %></h1>
+        <div class="d-flex justify-content-between">
+          <div class="m-2" id="manager-calendar">
+            <%#= render 'days/greeting' %>
+            <div class="calendar">
+              <h1 class="m-4"><%= @this_month %></h1>
               <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
             </div>
           </div>

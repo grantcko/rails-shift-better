@@ -37,12 +37,12 @@
     padding-bottom: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
-    background-color: #eeaeca;
+    background-color: $warning;
     text-align: center;
     border-style: solid;
     border-color: grey;
     border-width: 1px;
-    color: white;
+    color: rgb(250, 249, 249);
     align-items: center;
 
 }
@@ -55,8 +55,8 @@
 }
 
 .generate-btn {
-  background-color: #787676;
-  color: rgb(233, 233, 233);
+  background-color: #90c2ff;
+  color: rgb(18, 8, 8);
   margin-top: 0px;
   margin-bottom: 0px;
   padding-left: 20px;

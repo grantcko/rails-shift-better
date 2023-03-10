@@ -29,7 +29,34 @@
 }
 
 .category-selector:checked + label {
-  color: #1edd88 !important;
+  color: $warning !important;
   font-weight: bold;
-  border-color: #1edd88;
+  border-color: $warning;
+}
+
+.tag-item {
+  display: inline-block;
+}
+
+.tag-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.tag-selector + label {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  border-radius: 50rem;
+  padding: 0.1rem 3rem;
+  color: rgb(82, 82, 82);
+  background-color: white;
+  border: 1px solid $warning;
+  margin-right: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.tag-selector:checked + label {
+  background-color: $warning;
+  color: white;
 }
