@@ -77,10 +77,10 @@ class DaysController < ApplicationController
   end
 
   def create_month
-    Assignment.destroy_all
     month = params[:month].present? ? params[:month] : Date.today.month
     days = Day.where("extract(month from date) = ?", month)
     shifts = Shift.where(day_id: days)
+    Assignment.destroy_by(shift: shifts)
     shifts.each do |shift|
       User.all.shuffle.each do |user|
         next unless user.can_be_assigned?(shift, days)

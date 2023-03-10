@@ -228,7 +228,7 @@ User.all.each do |user|
 end
 
 users = User.all.to_a
-User.count.times do
+8.times do
   days = Day.all.filter { |dayy| dayy.date.month == 4 }
   shift = days.last.shifts.last
   Preference.create!(
