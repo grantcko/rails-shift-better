@@ -228,9 +228,10 @@ User.all.each do |user|
 end
 
 users = User.all.to_a
-User.count.times do
+14.times do
   days = Day.all.filter { |dayy| dayy.date.month == 4 }
-  shift = days.last.shifts.last
+  # shift = days.last.shifts.first
+  shift = Day.find_by(date: Date.new(2023, 04, 29)).shifts.last
   Preference.create!(
     category: :time_off,
     unavailable_shift_ids: [shift.id],
