@@ -30,18 +30,18 @@
             <%= render "days/loading_bar", users: @users %>
           </div>
         </div>
-      <% else %>
-        <%# EMPLOYEE CALENDAR %>
-        <div class="employee-calendar-layout">
-          <div class="m-2" id="manager-calendar">
-            <%#= render 'days/greeting' %>
-            <div class="calendar">
-              <h1 class="m-4"><%= @this_month %></h1>
-              <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
-            </div>
+      </div>
+    <% else %>
+      <%# EMPLOYEE CALENDAR %>
+      <div class="employee-calendar-layout">
+        <div class="m-2" id="manager-calendar">
+          <%#= render 'days/greeting' %>
+          <div class="calendar">
+            <h1 class="m-4"><%= @this_month %></h1>
+            <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
           </div>
+          <%= render 'days/preference_bar' %>
         </div>
-        <%= render 'days/preference_bar' %>
       </div>
     </div>
   <% end %>

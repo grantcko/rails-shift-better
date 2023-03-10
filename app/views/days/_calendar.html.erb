@@ -27,9 +27,6 @@
           <% empty_count = 0 %>
           <% if day.assignments.count == 9 && params[:user_id].blank? %>
             <i class="fa-solid fa-check"></i> Assigned
-            <div style="height: 1em"></div>
-            <div style="height: 1em"></div>
-            <div style="height: 1em"></div>
           <% else %>
             <% shifts.each do |shift| %>
               <% if shift.day == day %>
@@ -39,9 +36,6 @@
                   <p class="shifts shift-warning text-white"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
                 <% elsif shift.assignments.count == 0 %>
                   <% empty_count += 1 %>
-                  <div style="height: 1em"></div>
-                  <div style="height: 1em"></div>
-                  <div style="height: 1em"></div>
                 <% else %>
                   <p class="shifts shift-warning text-white"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
                 <% end %>
