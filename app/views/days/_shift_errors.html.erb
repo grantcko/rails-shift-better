@@ -1,14 +1,14 @@
 <% truths = [] %>
 <% nonzero = [] %>
 <% uniqs = [] %>
-<%  Shift.all.each { |shift| truths << (shift.assignments.count == 3) } %>
-<%  Shift.all.each { |shift| truths << (shift.assignments.count > 0) } %>
-<%  Shift.all.uniq { |shift| uniqs << (shift.assignments.count) } %>
+<%  Shift.where(day: days).each { |shift| truths << (shift.assignments.count == 3) } %>
+<%  Shift.where(day: days).each { |shift| truths << (shift.assignments.count > 0) } %>
+<%  Shift.where(day: days).uniq { |shift| uniqs << (shift.assignments.count) } %>
 <%# ary.uniq{|x| x.user_id} %>
 <% if truths.exclude?(false) %>
   <p>ALL SCHEDULES FILLED!</p>
 <% elsif truths.include?(false) && truths.include?(true) %>
-   <p><i class="fa-solid fa-triangle-exclamation"></i> ISSUES WITH SOME SHIFTS</p>
+  <p><i class="fa-solid fa-triangle-exclamation"></i> ISSUES WITH SOME SHIFTS</p>
 <% elsif truths.exclude?(true) %>
   <p>NO SCHEDULES YET!</p>
 <% else %>
