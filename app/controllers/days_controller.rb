@@ -31,6 +31,20 @@ class DaysController < ApplicationController
       @users = User.all
     end
     @weeks = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"]
+    @paid_dayoff = get_days_off("Paid dayoff")
+    @dayoff = get_days_off("Day off")
+    @time_off = get_days_off("Time off")
+  end
+
+  def get_days_off(category)
+    days = current_user.preferences.where(category: category)
+    days.select do |preference|
+      if params["month"]
+        preference.day.date.month == params["month"].to_i
+      else
+        preference.day.date.month == 3
+      end
+    end
   end
 
   def show

@@ -9,7 +9,7 @@
             collection_wrapper_class: 'category-wrapper',
             item_wrapper_class: 'category-item',
             input_html: {class: 'category-selector'},
-            collection: Preference.categories.values %>
+            collection: Preference::CATEGORY %>
     <p>Please Select Unavailable Shift (Time off)</p>
     <fieldset class="form-group check_boxes optional snippet_tags d-flex justify-content-around">
       <% @day.shifts.each do |shift| %>
