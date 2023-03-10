@@ -1,11 +1,9 @@
-
 <div class="cards text-uppercase fw-bold">
   <% @weeks.each_with_index do |weekday, index|%>
     <% if index== 0 || index== 6 %>
       <% color = "bg-light" %>
     <% else  %>
       <% color = "bg-light" %>
-
     <% end %>
     <div class="card-category <%= color %>" id="small-card-category">
       <p class="mb-0"><%= weekday %></p>
@@ -49,10 +47,9 @@
         </div>
       </div>
     <% end %>
-
-    <% @days_after.times do %>
-      <div class="card-category placeholder-grey "></div>
-    <% end %>
-  </div>
-
+  <% end %>
+  <% @days_after.times do %>
+    <div class="card-category placeholder-grey "></div>
+  <% end %>
+</div>
 </div>
