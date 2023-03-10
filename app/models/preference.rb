@@ -2,7 +2,7 @@ class Preference < ApplicationRecord
   belongs_to :user
   belongs_to :day
 
-  enum category: %i[day_off paid_dayoff time_off]
+  enum category: { day_off: "Day off", paid_dayoff: "Paid Day off", time_off: "Time off"}
   CATEGORY = ["day_off", "paid_dayoff", "time_off"]
   validates :category, presence: true
   validate :preference_count_within_limit, on: :create
