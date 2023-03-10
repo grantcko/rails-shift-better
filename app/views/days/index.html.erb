@@ -31,7 +31,6 @@
               <%= render "days/loading_bar", users: @users %>
             </div>
           </div>
-          <%= render 'days/preference_bar' %>
         </div>
       </div>
     </div>
@@ -60,6 +59,7 @@
           </div>
           <%= render 'days/employee_calendar', shifts: @shifts, days: @days %>
         </div>
+        <%= render 'days/preference_bar' %>
       </div>
     </div>
   <% end %>
