@@ -39,6 +39,9 @@
                   <p class="shifts shift-warning text-white"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
                 <% elsif shift.assignments.count == 0 %>
                   <% empty_count += 1 %>
+                  <div style="height: 1em"></div>
+                  <div style="height: 1em"></div>
+                  <div style="height: 1em"></div>
                 <% else %>
                   <p class="shifts shift-warning text-white"><%= "#{shift.start_time.hour}:00 - #{shift.end_time.hour}:00" %><i class="fa-solid fa-triangle-exclamation mx-1"></i></p>
                 <% end %>
