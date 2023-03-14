@@ -1,5 +1,13 @@
 .bg-heading {
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  background-color: $warning;
   border-radius: 5px;
-  --bs-bg-opacity: 1;
+  color: white;
+}
+
+.text-gray{
+  color:#74777a;
+}
+
+.progress {
+  --bs-progress-height: 10px;
 }

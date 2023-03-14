@@ -2,7 +2,7 @@
   background-size: cover;
   background-position: center;
   height: 130px;
-  width: 130px;
+  width: 100%;
   // height: 136px;
   // width: 136px;
   display: flex;
@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  font-size: 10px;
+  font-size: 16px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   margin: 0px;
   border-style: solid;
@@ -20,38 +20,41 @@
 }
 
 #small-card-category{
-  height: 20px;
+  height: 30px;
 }
 
 .date-corner {
   position: absolute;
   top: 7px;
+  left: 8px;
+  font-size: 14px;
 }
 
 .status-corner-smaller {
   position: absolute;
-  color: #ffa200;
+  color: $orange;
   top: 7px;
-  left: 104px;
-  font-size: 11px;
+  right: 8px;
+  font-size: 14px;
   font-kerning: normal;
   text-shadow: none;
 }
 
 .status-corner {
   position: absolute;
-  color: #ffa200;
-  top: 7px;
-  left: 108px;
+  color: $orange;
+  top: 10px;
   font-size: 13px;
   font-kerning: normal;
   text-shadow: none;
+  right: 15px;
 }
 
 
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
   // grid-gap: 16px;
 }
 
@@ -71,14 +74,15 @@
 
 .placeholder-grey {
   // border-style: none;
-  background-color: lightgrey;
+  background-color: #ebf4ff;
 }
 
 .shifts {
   padding-left: 5px;
   padding-right: 5px;
   border-radius: 3px;
-  font-size: 12px;
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
 .shift-empty {
@@ -96,12 +100,12 @@
 
 .shift-warning {
   color: rgb(255, 255, 255);
-  background-color: rgb(255, 81, 81);
+  background-color: #ff5151;
 }
 
 .shift-good {
-  color: rgb(255, 255, 255);
-  background-color: #2f7bff;;
+  color: $gray;
+  background-color: $light-gray;
 }
 
 .shift-work {
@@ -129,6 +133,11 @@
   top: 350px;
 }
 
+.employee-calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+}
+
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
 
@@ -152,4 +161,8 @@
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
 
+}
+
+.calendar-content.hidden  {
+  opacity: 0.3;
 }

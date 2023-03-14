@@ -8,7 +8,7 @@
 <% if truths.exclude?(false) %>
   <p>ALL SCHEDULES FILLED!</p>
 <% elsif truths.include?(false) && truths.include?(true) %>
-  <p>ISSUES WITH SOME SHIFTS</p>
+   <p><i class="fa-solid fa-triangle-exclamation"></i> ISSUES WITH SOME SHIFTS</p>
 <% elsif truths.exclude?(true) %>
   <p>NO SCHEDULES YET!</p>
 <% else %>

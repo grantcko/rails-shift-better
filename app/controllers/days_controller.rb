@@ -2,11 +2,12 @@ class DaysController < ApplicationController
   def index
     @days = policy_scope(Day)
     # go through each day and collect it in an array if the day's date's is == the specific month
-
     if params[:month]
       @days = @days.filter { |day| day.date.month == params[:month].to_i }
+      @this_month = month_of_days(params[:month].to_i)
     else
-      @days = @days.filter { |day| day.date.month == Date.today.month - 1 }
+      @days = @days.filter { |day| day.date.month == Date.today.month }
+      @this_month = month_of_days(3)
     end
 
     if @days.count.positive?
@@ -22,7 +23,7 @@ class DaysController < ApplicationController
     if params[:user_id]
       @shifts = @shifts.joins(:assignments).where(assignments: { user_id: params[:user_id] })
     end
-    @this_month = month_of_days(params[:month].to_i)
+
     @current_user = current_user
     if params[:query].present?
       @users = User.search_by_name(params[:query])
@@ -30,6 +31,20 @@ class DaysController < ApplicationController
       @users = User.all
     end
     @weeks = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"]
+    @paid_dayoff = get_days_off("Paid dayoff")
+    @dayoff = get_days_off("Day off")
+    @time_off = get_days_off("Time off")
+  end
+
+  def get_days_off(category)
+    days = current_user.preferences.where(category: category)
+    days.select do |preference|
+      if params["month"]
+        preference.day.date.month == params["month"].to_i
+      else
+        preference.day.date.month == 3
+      end
+    end
   end
 
   def show
@@ -38,10 +53,11 @@ class DaysController < ApplicationController
     @day_shift_errors = {}
     authorize @day
     authorize @shifts
-    User.all.each { |user| user.shift_errors = [] }
+    # User.all.each { |user| user.shift_errors = [] }
+    days = Day.where("extract(month from date) = ?", @day.date.month)
     User.all.each do |user| # each user
       @shifts.each do |shift| # each shift on that day
-        user.can_be_assigned?(shift) # loading up error messages per shift
+        user.can_be_assigned?(shift, days) # loading up error messages per shift
         # loading up the error given for each shift
         @day_shift_errors[[user.id, user.shift_errors[0]]] = user.shift_errors[1]
       end
@@ -75,17 +91,21 @@ class DaysController < ApplicationController
   end
 
   def create_month
-    Assignment.destroy_all
-    Shift.all.each do |shift|
-      random_users.each do |user|
-        next unless user.can_be_assigned?(shift)
+    month = params[:month].present? ? params[:month] : Date.today.month
+    days = Day.where("extract(month from date) = ?", month)
+    shifts = Shift.where(day_id: days)
+    Assignment.destroy_by(shift: shifts)
+    shifts.each do |shift|
+      User.all.shuffle.each do |user|
+        next unless user.can_be_assigned?(shift, days)
 
         @assignment = Assignment.new(shift:, user:)
         authorize @assignment
         @assignment.save
+        break if shift.assignments.count == 3
       end
     end
-    redirect_to days_path
+    redirect_to days_path(month: month)
   end
 
   private
@@ -102,14 +122,6 @@ class DaysController < ApplicationController
     else
       return months[Date.today.month - 1]
     end
-  end
-
-  def random_users
-    ordered_users = []
-    User.all.each { |user| ordered_users << user }
-    random_users = []
-    User.all.each { (num = rand(0...User.all.count)) && (random_users << ordered_users[num]) }
-    random_users
   end
 end
 

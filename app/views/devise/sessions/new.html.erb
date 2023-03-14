@@ -1,5 +1,5 @@
 <div class="move-to-right text-login-form">
-  <div class="my-5">
+  <div class="card-preference m-5" style="background-color: #80808057;">
     <h2>Sign in</h2>
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: :false }) do |f| %>
       <div class="form-inputs">
@@ -16,6 +16,7 @@
         <%= f.button :submit, "Sign in", class: "btn btn-light" %>
       </div>
     <% end %>
+    <br>
     <%= render "devise/shared/links" %>
   </div>
 </div>
